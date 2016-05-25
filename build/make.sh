@@ -24,18 +24,16 @@ popd
 # this commit is here because gclient changes some files and they need to be either reset or committed to make repo clean
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Dummy"
 
-# reverting Google sign-in and extended bookmarks related removals
-# (well, they are not removed but placed under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag, but this flag is not added for actual usage)
+# reverting Google capabilities, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
 # some of them are part of other commits, so had to use patching
 git apply $LOCAL_REPO/build/patches/signin.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Getting sign-in back"
 
 # I do not know other way to get it themed, sorry
-git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Dev for themes support :->"
+git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"
 
 # removing Google Translate tick as it does not work anyway
-#git apply $LOCAL_REPO/build/patches/remove_translate.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Remove page translation tick"
+git apply $LOCAL_REPO/build/patches/remove_translate.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Remove page translation tick"
 
-#cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res_chromium/raw/
 cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
 

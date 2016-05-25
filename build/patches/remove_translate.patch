@@ -1,12 +1,11 @@
 diff --git a/chrome/android/java/res/xml/language_preferences.xml b/chrome/android/java/res/xml/language_preferences.xml
-index 637af11..e2ada29 100644
+index 637af11..1d22fa7 100644
 --- a/chrome/android/java/res/xml/language_preferences.xml
 +++ b/chrome/android/java/res/xml/language_preferences.xml
-@@ -6,15 +6,15 @@
- <PreferenceScreen
+@@ -7,14 +7,15 @@
      xmlns:android="http://schemas.android.com/apk/res/android"
      xmlns:chrome="http://schemas.android.com/apk/res-auto">
--
+ 
 +<!--
      <org.chromium.chrome.browser.preferences.ChromeBaseCheckBoxPreference
          android:key="translate_checkbox"
@@ -23,18 +22,18 @@ index 637af11..e2ada29 100644
 \ No newline at end of file
 +</PreferenceScreen>
 diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java
-index 4a2907d..bccf871 100644
+index 3ad6556..1c4dbc4 100644
 --- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java
 +++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java
-@@ -26,7 +26,6 @@ import org.chromium.ui.widget.Toast;
+@@ -28,7 +28,6 @@ import org.chromium.ui.widget.Toast;
   */
- public class LanguagePreferences extends BrowserPreferenceFragment {
+ public class LanguagePreferences extends PreferenceFragment {
  
 -    private static final String PREF_TRANSLATE_CHECKBOX = "translate_checkbox";
      public static final String PREF_AUTO_DETECT_CHECKBOX = "auto_detect_encoding_checkbox";
  
      @Override
-@@ -39,26 +38,6 @@ public class LanguagePreferences extends BrowserPreferenceFragment {
+@@ -41,26 +40,6 @@ public class LanguagePreferences extends PreferenceFragment {
          final Context context = getActivity();
          if (context == null) return;
  
