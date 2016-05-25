@@ -1,0 +1,78 @@
+diff --git a/chrome/android/java/src/org/chromium/chrome/browser/compositor/layouts/EdgeNavigationLayout.java b/chrome/android/java/src/org/chromium/chrome/browser/compositor/layouts/EdgeNavigationLayout.java
+index a426828..5ad4985 100644
+--- a/chrome/android/java/src/org/chromium/chrome/browser/compositor/layouts/EdgeNavigationLayout.java
++++ b/chrome/android/java/src/org/chromium/chrome/browser/compositor/layouts/EdgeNavigationLayout.java
+@@ -43,9 +43,7 @@ import android.text.TextUtils;
+ import android.view.MotionEvent;
+ 
+ import org.chromium.base.Log;
+-import org.chromium.base.CommandLine;
+ import org.chromium.chrome.R;
+-import org.chromium.chrome.browser.ChromeSwitches;
+ import org.chromium.chrome.browser.compositor.LayerTitleCache;
+ import org.chromium.chrome.browser.compositor.layouts.components.LayoutTab;
+ import org.chromium.chrome.browser.compositor.layouts.content.TabContentManager;
+@@ -59,7 +57,6 @@ import org.chromium.chrome.browser.document.BrandColorUtils;
+ import org.chromium.chrome.browser.favicon.FaviconHelper;
+ import org.chromium.chrome.browser.favicon.LargeIconBridge;
+ import org.chromium.chrome.browser.fullscreen.ChromeFullscreenManager;
+-import org.chromium.chrome.browser.preferences.PrefServiceBridge;
+ import org.chromium.chrome.browser.tab.EmptyTabObserver;
+ import org.chromium.chrome.browser.tab.Tab;
+ import org.chromium.chrome.browser.tabmodel.EmptyTabModelObserver;
+@@ -890,12 +887,6 @@ public class EdgeNavigationLayout extends Layout
+         }
+     }
+ 
+-    public static boolean isEnabled() {
+-        return !CommandLine.getInstance().hasSwitch(
+-                ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES) &&
+-            !PrefServiceBridge.getInstance().getPowersaveModeEnabled();
+-    }
+-
+     private Bitmap createBitmapFromText(String text, int reqwidth) {
+         Paint paint = new Paint();
+         paint.setTextSize(30.f);
+diff --git a/chrome/android/java/src/org/chromium/chrome/browser/compositor/layouts/LayoutManagerDocument.java b/chrome/android/java/src/org/chromium/chrome/browser/compositor/layouts/LayoutManagerDocument.java
+index e839ea3..2079b9c 100644
+--- a/chrome/android/java/src/org/chromium/chrome/browser/compositor/layouts/LayoutManagerDocument.java
++++ b/chrome/android/java/src/org/chromium/chrome/browser/compositor/layouts/LayoutManagerDocument.java
+@@ -12,7 +12,9 @@ import android.util.SparseArray;
+ import android.view.MotionEvent;
+ import android.view.ViewGroup;
+ 
++import org.chromium.base.CommandLine;
+ import org.chromium.chrome.browser.ChromeApplication;
++import org.chromium.chrome.browser.ChromeSwitches;
+ import org.chromium.chrome.browser.UrlConstants;
+ import org.chromium.chrome.browser.compositor.bottombar.contextualsearch.ContextualSearchPanel;
+ import org.chromium.chrome.browser.compositor.layouts.components.LayoutTab;
+@@ -117,7 +119,8 @@ public class LayoutManagerDocument extends LayoutManager
+         mGestureHandler = new GestureHandlerLayoutDelegate(this);
+         mToolbarSwipeHandler = new ToolbarSwipeHandler(this);
+ 
+-        if (EdgeNavigationLayout.isEnabled()) {
++        if (!CommandLine.getInstance().hasSwitch(
++                ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
+             mEdgeNavigationLayout = EdgeNavigationLayout.getNewLayout(context, this, renderHost);
+         }
+ 
+diff --git a/chrome/android/java/src/org/chromium/chrome/browser/tab/ChromeTab.java b/chrome/android/java/src/org/chromium/chrome/browser/tab/ChromeTab.java
+index 4fe97c7..dceec11 100644
+--- a/chrome/android/java/src/org/chromium/chrome/browser/tab/ChromeTab.java
++++ b/chrome/android/java/src/org/chromium/chrome/browser/tab/ChromeTab.java
+@@ -1209,11 +1209,9 @@ public class ChromeTab extends Tab {
+                         return true;
+                     }
+ 
+-                    if (EdgeNavigationLayout.isEnabled()) {
+-                        EdgeNavigationLayout.captureBeforeNavigation(
+-                                getLastCommittedEntryIndex(),
+-                                ChromeTab.this, mTabContentManager);
+-                    }
++                    EdgeNavigationLayout.captureBeforeNavigation(
++                            getLastCommittedEntryIndex(),
++                            ChromeTab.this, mTabContentManager);
+                     return false;
+             }
+         }

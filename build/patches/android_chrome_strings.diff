@@ -1,0 +1,11 @@
+--- out/Default/gen/chrome/android/chrome_strings_grd_grit_output/values-ru/android_chrome_strings.xml
++++ out/Default/gen/chrome/android/chrome_strings_grd_grit_output/values-ru/android_chrome_strings.xml
+@@ -48,7 +48,7 @@
+ <string name="prefs_saved_passwords">"Сохранение паролей"</string>
+ <string name="prefs_smart_lock_for_passwords">"Smart Lock для паролей"</string>
+ <string name="passwords_auto_signin_title">"Автоматический вход"</string>
+-<string name="passwords_auto_signin_message">"Signed in as %1$s"</string>
++<string name="passwords_auto_signin_message">"Вход осуществлен как %1$s"</string>
+ <string name="passwords_auto_signin_description">"Использовать сохраненные учетные данные при входе на веб-сайтах. Если функция отключена, данные необходимо указывать при каждом входе."</string>
+ <string name="section_saved_passwords">"Пароли"</string>
+ <string name="section_saved_passwords_exceptions">"Сайты, пароли для которых не сохраняются"</string>

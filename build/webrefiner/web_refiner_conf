@@ -1,0 +1,69 @@
+{
+  "version": "1.0",
+  "update": {},
+  "subscriptions": [
+    {
+      "name"            : "Malware Domains Filter",
+      "category"        : "MALWARE_DOMAINS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://easylist-downloads.adblockplus.org/malwaredomains_full.txt",
+      "expiration"      : "5 days"
+    },
+    {
+      "name"            : "Privacy Filter",
+      "category"        : "TRACKERS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://easylist-downloads.adblockplus.org/easyprivacy.txt",
+      "expiration"      : "5 days"
+    },
+    {
+      "name"            : "Ad Filter",
+      "category"        : "ADS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://easylist-downloads.adblockplus.org/easylist.txt",
+      "expiration"      : "5 days"
+    },
+    {
+      "name"            : "Dutch Ad Filter",
+      "category"        : "ADS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://easylist-downloads.adblockplus.org/easylistdutch.txt",
+      "expiration"      : "5 days"
+    },
+    {
+      "name"            : "Anti Adblock Filter",
+      "category"        : "ADS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt",
+      "expiration"      : "5 days"
+    },
+    {
+      "name"            : "Adware Filter",
+      "category"        : "ADS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://easylist-downloads.adblockplus.org/adwarefilters.txt",
+      "expiration"      : "5 days"
+    },
+    {
+      "name"            : "Regional Ad Filter",
+      "category"        : "ADS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://easylist-downloads.adblockplus.org/bitblock.txt",
+      "expiration"      : "5 days"
+    },
+    {
+      "name"            : "Regional Anti Adblock Filter",
+      "category"        : "ADS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://easylist-downloads.adblockplus.org/advblock.txt",
+      "expiration"      : "5 days"
+    },
+    {
+      "name"            : "Anti AdBlock Filters 2",
+      "category"        : "ADS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://raw.githubusercontent.com/reek/anti-adblock-killer/master/anti-adblock-killer-filters.txt",
+      "expiration"      : "5 days"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "update": {},
+  "subscriptions": [
+    {
+      "name"            : "Third Party Domain Login Exception List",
+      "category"        : "TP_DOMAIN_LOGIN_EXCEPTIONS",
+      "format"          : "WebDefender 1.0",
+      "url"             : "https://www.eff.org/files/domain_exception_list.txt",
+      "expiration"      : "4 days"
+    },
+    {
+      "name"            : "Acceptable DNT privacy policy hashes",
+      "category"        : "DNT_POLICY_HASH_LIST",
+      "format"          : "WebDefender 1.0",
+      "url"             : "https://www.eff.org/files/dnt-policies.json",
+      "expiration"      : "14 days"
+    },
+    {
+      "name"            : "Cookie Block List",
+      "category"        : "COOKIE_BLOCK_YELLOW_LIST",
+      "format"          : "WebDefender 1.0",
+      "url"             : "https://www.eff.org/files/cookieblocklist.txt",
+      "expiration"      : "4 days"
+    },
+    {
+      "name"            : "Cookie Block List",
+      "category"        : "COOKIE_BLOCK_YELLOW_LIST",
+      "format"          : "WebDefender 1.0",
+      "url"             : "https://raw.githubusercontent.com/liamja/Prebake/master/obtrusive.txt",
+      "expiration"      : "7 days"
+    }
+  ]
+}

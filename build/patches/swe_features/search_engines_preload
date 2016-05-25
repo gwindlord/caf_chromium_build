@@ -1,0 +1,18 @@
+{
+    "version": "1.0",
+    "searchEngines": [
+        {
+        "name": "DuckDuckGo",
+        "keyword": "duckduckgo.com",
+        "searchUrl": "https://duckduckgo.com/?q={searchTerms}",
+        "faviconUrl": "https://duckduckgo.com/favicon.ico"
+        },
+        {
+        "name": "Bing",
+        "keyword": "bing.com",
+        "searchUrl": "https://www.bing.com/search?q={searchTerms}",
+        "faviconUrl": "https://www.bing.com/favicon.ico"
+        }
+    ],
+    "default": 0
+}

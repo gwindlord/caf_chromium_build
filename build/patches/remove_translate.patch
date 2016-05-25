@@ -1,0 +1,63 @@
+diff --git a/chrome/android/java/res/xml/language_preferences.xml b/chrome/android/java/res/xml/language_preferences.xml
+index 637af11..e2ada29 100644
+--- a/chrome/android/java/res/xml/language_preferences.xml
++++ b/chrome/android/java/res/xml/language_preferences.xml
+@@ -6,15 +6,15 @@
+ <PreferenceScreen
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:chrome="http://schemas.android.com/apk/res-auto">
+-
++<!--
+     <org.chromium.chrome.browser.preferences.ChromeBaseCheckBoxPreference
+         android:key="translate_checkbox"
+         android:title="@string/google_translate"
+         android:summary="@string/translate_prefs_description" />
+-
++-->
+     <org.chromium.chrome.browser.preferences.ChromeBaseCheckBoxPreference
+         android:key="auto_detect_encoding_checkbox"
+         android:title="@string/auto_detect_encoding"
+         android:summary="@string/auto_detect_encoding_description" />
+ 
+-</PreferenceScreen>
+\ No newline at end of file
++</PreferenceScreen>
+diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java
+index 4a2907d..bccf871 100644
+--- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java
++++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java
+@@ -26,7 +26,6 @@ import org.chromium.ui.widget.Toast;
+  */
+ public class LanguagePreferences extends BrowserPreferenceFragment {
+ 
+-    private static final String PREF_TRANSLATE_CHECKBOX = "translate_checkbox";
+     public static final String PREF_AUTO_DETECT_CHECKBOX = "auto_detect_encoding_checkbox";
+ 
+     @Override
+@@ -39,26 +38,6 @@ public class LanguagePreferences extends BrowserPreferenceFragment {
+         final Context context = getActivity();
+         if (context == null) return;
+ 
+-        ChromeBaseCheckBoxPreference translateCheckBox =
+-                (ChromeBaseCheckBoxPreference) findPreference(PREF_TRANSLATE_CHECKBOX);
+-
+-        boolean isTranslateEnabled = PrefServiceBridge.getInstance().isTranslateEnabled();
+-        translateCheckBox.setChecked(isTranslateEnabled);
+-
+-        translateCheckBox.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+-            @Override
+-            public boolean onPreferenceChange(Preference preference, Object newValue) {
+-                PrefServiceBridge.getInstance().setTranslateEnabled((boolean) newValue);
+-                return true;
+-            }
+-        });
+-        translateCheckBox.setManagedPreferenceDelegate(new ManagedPreferenceDelegate() {
+-            @Override
+-            public boolean isPreferenceControlledByPolicy(Preference preference) {
+-                return PrefServiceBridge.getInstance().isTranslateManaged();
+-            }
+-        });
+-
+         ChromeBaseCheckBoxPreference autoDetectCheckBox =
+                 (ChromeBaseCheckBoxPreference) findPreference(PREF_AUTO_DETECT_CHECKBOX);
+ 

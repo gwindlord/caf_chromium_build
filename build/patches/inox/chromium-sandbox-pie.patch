@@ -1,0 +1,16 @@
+diff --git a/sandbox/linux/sandbox_linux.gypi b/sandbox/linux/sandbox_linux.gypi
+index 9576802..9f73c8b 100644
+--- a/sandbox/linux/sandbox_linux.gypi
++++ b/sandbox/linux/sandbox_linux.gypi
+@@ -205,7 +205,10 @@
+       ],
+       'cflags': [
+         # For ULLONG_MAX
+-        '-std=gnu99',
++        '-std=gnu99 -fPIE',
++      ],
++      'ldflags': [
++        '-pie',
+       ],
+       'include_dirs': [
+         '../..',

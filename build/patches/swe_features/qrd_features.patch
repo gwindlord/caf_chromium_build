@@ -1,0 +1,13 @@
+diff --git a/chrome/android/java/res/values/values.xml b/chrome/android/java/res/values/values.xml
+index 9628476..fd2a5a1 100644
+--- a/chrome/android/java/res/values/values.xml
++++ b/chrome/android/java/res/values/values.xml
+@@ -70,7 +70,7 @@
+ 
+     <!-- QRD features -->
+     <bool name="swe_feature_exit_dialog">false</bool>
+-    <bool name="swe_feature_allow_media_downloads">false</bool>
++    <bool name="swe_feature_allow_media_downloads">true</bool>
+     <!-- Prompt user to select WiFi access point or otherwise enable WLAN -->
+     <bool name="swe_feature_network_notifier">false</bool>
+ 

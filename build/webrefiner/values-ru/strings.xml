@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2016 Qualcomm Technologies, Inc.
+ All Rights Reserved.
+ Confidential and Proprietary - Qualcomm Technologies, Inc.
+ -->
+
+<resources>
+    <string name="web_refiner_branding_label">Smart Protect - Web</string>
+    <string name="web_refiner_title">Web Refiner</string>
+    <string name="web_defender_title">Web Defender (beta)</string>
+    <string name="web_refiner_about_text">Web Refiner - компонент для фильтрации содержания сайта, позволяющий блокировать рекламу, трекеры и вредоносные домены. Когда он включён, серфинг становится менее назойливым и более дружелюбным. Ваш веб-браузер работает быстрее, вы тратите меньше трафика на скачивание рекламы и вы защищены от слежки и вредоносных компонентов.</string>
+    <string name="web_defender_about_text">Web Defender предотвращает работу сторонних отслеживающих скриптов, включая рекламные, запрещая им собирать информацию о посещенных вами сайтах, а также информацию, которая однозначно вас идентифицирует. Если некий скрипт отслеживает ваши действия на нескольких сайтах сразу, Web Defender автоматически блокирует его работу.</string>
+    <string name="swe_security_docs_url" translatable="false">https://support.swe.quicinc.com/swe/docs/articles/en/swe-security.html?hl=$HOST_LANG</string>
+    <string name="web_refiner_docs_url" translatable="false">https://support.swe.quicinc.com/swe/docs/articles/en/web-refiner.html?hl=$HOST_LANG</string>
+    <string name="web_defender_docs_url" translatable="false">https://support.swe.quicinc.com/swe/docs/articles/en/web-defender.html?hl=$HOST_LANG</string>
+</resources>

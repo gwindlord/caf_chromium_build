@@ -1,0 +1,114 @@
+diff --git a/chrome/android/java/res_swe/values-ru/swe_strings.xml b/chrome/android/java/res_swe/values-ru/swe_strings.xml
+index a4b2824..62dec06 100644
+--- a/chrome/android/java/res_swe/values-ru/swe_strings.xml
++++ b/chrome/android/java/res_swe/values-ru/swe_strings.xml
+@@ -46,8 +46,8 @@
+   <string name="infobar_missing_microphone_permission_text">Браузеру требуется разрешение на использование на этом сайте функций микрофона.</string>
+   <string name="infobar_missing_multiple_permissions_text">Браузеру требуются разрешения на использование некоторых возможностей на этом сайте.</string>
+   <string name="infobar_permission_allow_24hrs">Разрешить на 24 часа</string>
+-  <string name="infobar_permission_remember">Запомнить настройки</string>
+-  <string name="menu_load_live_page_for_offline_page">Опубликовать</string>
++  <string name="infobar_permission_remember">"Запомнить выбор"</string>
++  <string name="menu_load_live_page_for_offline_page">"Открыть в сети"</string>
+   <string name="menu_open_in_chrome">Открыть в браузере</string>
+   <string name="menu_save_offline_page">Сохранить страницу</string>
+   <string name="most_visited">Часто посещаемые</string>
+@@ -55,10 +55,10 @@
+   <string name="native_startup_failed">При запуске браузера произошла непредвиденная ошибка.</string>
+   <string name="night_mode_reload_tip_text">Включите \"Ночной режим\". Он поможет снять нагрузку с глаз при работе в темном помещении.</string>
+   <string name="night_mode_title">Ночной режим</string>
+-  <string name="ntp_custom_home">Главная</string>
+-  <string name="offline_readings">Автономное чтение</string>
+-  <string name="offline_readings_empty">Страницы, сохраненные для автономного чтения, не найдены</string>
+-  <string name="offline_readings_snackbar_saved">Страница сохранена для автономного чтения</string>
++  <string name="ntp_custom_home">Главная страница</string>
++  <string name="offline_readings">"Сохранённые страницы"</string>
++  <string name="offline_readings_snackbar_saved">"Страницы, сохранённые для просмотра офлайн"</string>
++  <string name="offline_readings_empty">"Нет страниц для просмотра офлайн"</string>
+   <string name="other_homepage">Другое</string>
+   <string name="powered_by_chrome_message">На базе Chromium</string>
+   <string name="powersave_mode_opt_in_confirmation">Будет включен энергосберегающий режим.</string>
+@@ -76,7 +76,7 @@
+   <string name="swe_action_not_found">Действие не найдено</string>
+   <string name="swe_download_estore_app">Приложение Estore не существует. Загрузите и установите его.</string>
+   <string name="swe_download_infobar_text">Загрузить ^1 в ^2?</string>
+-  <string name="swe_downloadpath_not_enough_space">Недостаточно свободного пространства для загрузки</string>
++  <string name="swe_downloadpath_not_enough_space">Недостаточно свободного места для загрузки</string>
+   <string name="swe_drm_file_unsupported">Загрузка файлов DRM не поддерживается!</string>
+   <string name="swe_exit">Закрыть</string>
+   <string name="swe_exit_dialog_msg">Закрыть браузер?</string>
+@@ -84,48 +84,60 @@
+   <string name="swe_media_msg">Выберите действие для медиафайла</string>
+   <string name="swe_minimize">Свернуть</string>
+   <string name="swe_quit">Закрыть</string>
+-  <string name="swe_wifi_select_message">Обнаружена сеть Wi-Fi!\n Выберите точку доступа Wi-Fi для браузера</string>
++  <string name="swe_wifi_select_message">Обнаружена сеть Wi-Fi!\n Пожалуйста, выберите точку доступа Wi-Fi для браузера</string>
+   <string name="terms_of_service_title">Условия использования браузера</string>
+-  <string name="tooltip_favicon_change_search_engine">Коснитесь здесь, чтобы выбрать другую поисковую систему.</string>
+-  <string name="tooltip_favicon_change_site_settings">Коснитесь здесь, чтобы изменить параметры для текущего сайта, включая фильтрацию содержимого.</string>
+-  <string name="tooltip_favicon_content_blocking_info">Включена фильтрация содержимого. Коснитесь здесь, чтобы отобразить подробные сведения.</string>
+-  <string name="tooltip_favicon_site_integrity_check">Включена фильтрация содержимого. При проблемах с сайтом коснитесь этого значка и отключите фильтрацию содержимого.</string>
++  <string name="tooltip_favicon_change_search_engine">"Нажмите на значок, чтобы изменить поисковую систему"</string>
++  <string name="tooltip_favicon_change_site_settings">"Нажмите на значок, чтобы изменить настройки для текущего сайта, включая фильтрацию содержимого"</string>
++  <string name="tooltip_favicon_content_blocking_info">"Фильтрация содержимого включена. Нажмите на значок, чтобы отобразить подробные сведения"</string>
++  <string name="tooltip_favicon_site_integrity_check">"Фильтрация содержимого включена. Если сайт отображается неправильно, попробуйте нажать на этот значок и отключить фильтрацию"</string>
+   <string name="unsupported_number_of_windows">Неподдерживаемое количество окон браузера.</string>
+   <string name="web_defender_about_text">Веб-защита — это программа для предотвращения сбора данных о посещаемых сайтах и личных данных пользователя средствами отслеживания (в т. ч. средствами рекламы). При выявлении отслеживания действий пользователя на сайтах функция веб-защиты автоматически заблокирует это средство отслеживания, и оно больше не сможет загружать свой контент на страницы браузера.</string>
+   <string name="web_refiner_about_text">Фильтр веб-контента — это компонент фильтрации содержимого, позволяющий блокировать рекламу, средства отслеживания и вредоносные домены. На сайтах становится меньше отвлекающих факторов. Кроме того, браузер работает в целом быстрее, так как пропускная способность не тратится на загрузку рекламы, и система защищена от средств отслеживания и вредоносных доменов.</string>
+   <string name="webdefender">Веб-защита</string>
+   <string name="webrefiner_ads">реклама</string>
+-  <string name="webrefiner_ads_plural">реклама</string>
++  <string name="webrefiner_ads_plural">реклам</string>
+   <string name="webrefiner_malware">вредоносное ПО</string>
+   <string name="webrefiner_one_message">%s заблокирован.</string>
+   <string name="webrefiner_three_message">%1$s, %2$s и %3$s заблокированы.</string>
+   <string name="webrefiner_trackers">средство отслеживания</string>
+-  <string name="webrefiner_trackers_plural">средства отслеживания</string>
++  <string name="webrefiner_trackers_plural">средств отслеживания</string>
+   <string name="webrefiner_two_message">%1$s и %2$s заблокированы.</string>
+   <string name="website_settings_category_disabled">Отключено</string>
+   <string name="website_settings_category_enabled">Включено</string>
+   <string name="website_settings_category_webdefender_enabled">Браузер использует программу для отслеживания посещаемых сайтов и предотвращения сбора персональной информации о пользователе.</string>
+   <string name="website_settings_category_webrefiner_enabled_recommended">Блокирование рекламы, известных средств отслеживания и вредоносного ПО</string>
+   <string name="website_settings_security_title">Информация о безопасности</string>
+-  <string name="website_settings_smartprotect_title">Смарт-защита</string>
++  <string name="website_settings_smartprotect_title">Web Defender</string>
+   <string name="website_settings_webdefender_brief_message">Отслеживаемая информация не передается в подключенные домены %1$s.</string>
+   <string name="website_settings_webdefender_cookie">Хранение файлов cookie</string>
+   <string name="website_settings_webdefender_disabled">Вы не защищены от сторонних отслеживающих доменов.</string>
+-  <string name="website_settings_webdefender_disabled_count">Вы не защищены от сторонних отслеживающих доменов %1$s.</string>
+-  <string name="website_settings_webdefender_enabled">Веб-защита включена</string>
+-  <string name="website_settings_webdefender_fingerprint">Отпечаток пальца</string>
++  <string name="website_settings_webdefender_disabled_count">"Вы не защищены от отслеживания %1$s сторонними доменами."</string>
++  <string name="website_settings_webdefender_enabled">Web Defender включён</string>
++  <string name="website_settings_webdefender_fingerprint">Отпечаток</string>
+   <string name="website_settings_webdefender_font_enum">Список шрифтов</string>
+-  <string name="website_settings_webdefender_html5">Хранение HTML5</string>
++  <string name="website_settings_webdefender_html5">Хранилище HTML5</string>
+   <string name="website_settings_webdefender_privacy_meter_title">Измеритель уровня конфиденциальности</string>
+   <string name="website_settings_webdefender_title">Веб-защита</string>
+   <string name="website_settings_webdefender_tracking_list">Настройки подключенного домена:</string>
+-  <string name="website_settings_webdefender_tracking_not_detected">не обнаружено</string>
++  <string name="website_settings_webdefender_tracking_not_detected">не установлены</string>
+   <string name="website_settings_webdefender_tracking_vectors">Векторы слежения в подключенных доменах:</string>
+   <string name="website_settings_webdefender_vector_allow">Разрешить</string>
+   <string name="website_settings_webdefender_vector_not_connect">Не подключать</string>
+   <string name="website_settings_webdefender_vector_strip">Удалить векторы и подключить</string>
+-  <string name="website_settings_webdefender_vector_system_default">Решить за меня</string>
++  <string name="website_settings_webdefender_vector_system_default">Автоматически</string>
+   <string name="website_settings_webrefiner_disabled">Блокирование контента отключено</string>
+   <string name="website_settings_webrefiner_enabled">Блокирование контента включено</string>
+   <string name="website_settings_webrefiner_title">Фильтр веб-контента</string>
++
++  <!-- Update Notification -->
++  <string name="swe_update">"Доступно обновление для SWE browser"</string>
++  <string name="swe_update_msg">"\"Версия: \""</string>
++  <!-- Feedback strings -->
++  <string name="swe_feedback_subject">"Отзыв о браузере"</string>
++  <string name="swe_feedback_msg">"Версия : %1$s
++          &lt;br&gt;&lt;/br&gt;Контрольная сумма сборки: %2$s
++          &lt;br&gt;&lt;/br&gt;Заголовок вкладки: %3$s
++          &lt;br&gt;&lt;/br&gt;URL вкладки: %4$s
++          &lt;br&gt;&lt;/br&gt;Введите здесь ваш отзыв..."</string>
++
+ </resources>

@@ -1,0 +1,13 @@
+--- out/Default/obj/chrome/android/chrome_strings_grd.ninja
++++ out/Default/obj/chrome/android/chrome_strings_grd.ninja
+@@ -9,7 +9,8 @@
+       --no-output-all-resource-defines -D enable_printing -D $
+       use_concatenated_impulse_responses -D enable_media_router -D $
+       enable_webrtc -D enable_notifications -E $
+-      "ANDROID_JAVA_TAGGED_ONLY=false"
++      "ANDROID_JAVA_TAGGED_ONLY=false"; cd ../; patch $
++      -p0 < ../build/patches/android_chrome_strings.diff; cd ./chrome
+   description = ACTION Generating resources from $
+       ../chrome/android/java/strings/android_chrome_strings.grd
+   restat = 1
+ls 
