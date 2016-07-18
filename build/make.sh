@@ -21,41 +21,45 @@ pushd $LOCAL_REPO/src/components/web_refiner/java/
   git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding WebRefiner and WebDefender translation"
 popd
 
-# this commit is here because gclient changes some files and they need to be either reset or committed to make repo clean
-git add -f $(git status -s | awk '{print $2}') && git commit -m "Dummy"
+:<<comment
 
-# reverting Google capabilities, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
-# some of them are part of other commits, so had to use patching
-git apply $LOCAL_REPO/build/patches/signin.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Getting sign-in back"
+  # this commit is here because gclient changes some files and they need to be either reset or committed to make repo clean
+  git add -f $(git status -s | awk '{print $2}') && git commit -m "Dummy"
 
-# I do not know other way to get it themed, sorry
-#git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"
+  # reverting Google capabilities, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
+  # some of them are part of other commits, so had to use patching
+  git apply $LOCAL_REPO/build/patches/signin.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Getting sign-in back"
 
-# removing Google Translate tick as it does not work anyway
-git apply $LOCAL_REPO/build/patches/remove_translate.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Remove page translation tick"
+  # I do not know other way to get it themed, sorry
+  #git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"
 
-cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
-git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
+  # removing Google Translate tick as it does not work anyway
+  git apply $LOCAL_REPO/build/patches/remove_translate.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Remove page translation tick"
 
-git apply $LOCAL_REPO/build/patches/inox/chromium-sandbox-pie.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Hardening the sandbox with Position Independent Code(PIE) against ROP exploits"
+  cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
+  git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
 
-#cp -f $LOCAL_REPO/build/patches/search_engines_preload $LOCAL_REPO/src/chrome/android/java/res_chromium/raw/search_engines_preload
-mkdir -p $LOCAL_REPO/src/swe/channels/default/raw/ $LOCAL_REPO/src/swe/channels/system/raw/
-cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/default/raw/
-cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/system/raw/
-git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo and Bing search engines"
+  git apply $LOCAL_REPO/build/patches/inox/chromium-sandbox-pie.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Hardening the sandbox with Position Independent Code(PIE) against ROP exploits"
 
-mkdir -p $LOCAL_REPO/src/swe/channels/default/values/ $LOCAL_REPO/src/swe/channels/system/values/
-cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/default/values/
-cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/system/values/
-cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/default/values/
-cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/system/values/
-git add -f $(git status -s | awk '{print $2}') && git commit -m "Enabling Media Download for sure and disabling DRM upload restriction"
+  #cp -f $LOCAL_REPO/build/patches/search_engines_preload $LOCAL_REPO/src/chrome/android/java/res_chromium/raw/search_engines_preload
+  mkdir -p $LOCAL_REPO/src/swe/channels/default/raw/ $LOCAL_REPO/src/swe/channels/system/raw/
+  cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/default/raw/
+  cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/system/raw/
+  git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo and Bing search engines"
+
+  mkdir -p $LOCAL_REPO/src/swe/channels/default/values/ $LOCAL_REPO/src/swe/channels/system/values/
+  cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/default/values/
+  cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/system/values/
+  cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/default/values/
+  cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/system/values/
+  git add -f $(git status -s | awk '{print $2}') && git commit -m "Enabling Media Download for sure and disabling DRM upload restriction"
+
+comment
 
 if [[ "$isCustom" != "--no-gn" ]];
 then
   . build/android/envsetup.sh
-  gn gen out/Default --args='target_os="android" enable_nacl=false is_debug=false is_component_build=false'
+  gn gen out/Default --args='target_os="android" is_debug=false'
   # implementing custom translated lines build
   # now all translatons are stock - but keeping this as a nice w/a
   #patch -p0 < $LOCAL_REPO/build/patches/chrome_strings_grd_ninja.diff

@@ -13,4 +13,5 @@ pushd $LOCAL_REPO/src
   rm -rf out
 popd
 
-gclient sync --with_branch_heads
+#gclient sync --with_branch_heads
+gclient sync

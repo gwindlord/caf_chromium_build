@@ -1,4 +1,4 @@
-# Chromium CAF Snapdragon M50 Build Scripts
+# Chromium CAF Snapdragon M52 Build Scripts
 
 1. Setup build environment as it is described [here](https://www.codeaurora.org/xwiki/bin/Chromium+for+Snapdragon/Setup)
   (though I use OpenJDK instead or Oracle one and everything works)

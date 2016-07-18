@@ -1,8 +1,8 @@
 solutions = [
   { "name"        : "src",
-    "url"         : "git://codeaurora.org/quic/chrome4sdp/chromium/src.git@refs/remotes/origin/m50",
+    "url"         : "git://codeaurora.org/quic/chrome4sdp/chromium/src.git@refs/remotes/origin/m52",
     "deps_file"   : "DEPS",
-    "managed"     : True,
+    "managed"     : False,
     "safesync_url": "",
   },
 ]
