@@ -14,4 +14,5 @@ pushd $LOCAL_REPO/src
 popd
 
 #gclient sync --with_branch_heads
-gclient sync
+gclient sync -v -r refs/remotes/origin/m52
+

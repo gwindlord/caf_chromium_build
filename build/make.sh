@@ -21,6 +21,29 @@ pushd $LOCAL_REPO/src/components/web_refiner/java/
   git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding WebRefiner and WebDefender translation"
 popd
 
+# get back sign-in and sync
+git revert --no-edit cab298d1cf20f2e93a4e1d39dadcb47568c40ff0
+
+# revert system bundle packaging
+git revert --no-edit 76d1fb2083110a12d74aea99e4013d7fe2b5c64c
+
+cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
+git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
+
+mkdir -p $LOCAL_REPO/src/swe/channels/default/raw/ $LOCAL_REPO/src/swe/channels/system/raw/
+cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/default/raw/
+cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/system/raw/
+git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo and Bing search engines"
+
+mkdir -p $LOCAL_REPO/src/swe/channels/default/values/ $LOCAL_REPO/src/swe/channels/system/values/
+cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/default/values/
+cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/system/values/
+cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/default/values/
+cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/system/values/
+git add -f $(git status -s | awk '{print $2}') && git commit -m "Enabling Media Download for sure and disabling DRM upload restriction"
+
+git apply $LOCAL_REPO/build/patches/inox/chromium-sandbox-pie.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Hardening the sandbox with Position Independent Code(PIE) against ROP exploits"
+
 :<<comment
 
   # this commit is here because gclient changes some files and they need to be either reset or committed to make repo clean
@@ -36,29 +59,14 @@ popd
   # removing Google Translate tick as it does not work anyway
   git apply $LOCAL_REPO/build/patches/remove_translate.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Remove page translation tick"
 
-  cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
-  git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
-
-  git apply $LOCAL_REPO/build/patches/inox/chromium-sandbox-pie.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Hardening the sandbox with Position Independent Code(PIE) against ROP exploits"
-
   #cp -f $LOCAL_REPO/build/patches/search_engines_preload $LOCAL_REPO/src/chrome/android/java/res_chromium/raw/search_engines_preload
-  mkdir -p $LOCAL_REPO/src/swe/channels/default/raw/ $LOCAL_REPO/src/swe/channels/system/raw/
-  cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/default/raw/
-  cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/system/raw/
-  git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo and Bing search engines"
-
-  mkdir -p $LOCAL_REPO/src/swe/channels/default/values/ $LOCAL_REPO/src/swe/channels/system/values/
-  cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/default/values/
-  cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/system/values/
-  cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/default/values/
-  cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/system/values/
-  git add -f $(git status -s | awk '{print $2}') && git commit -m "Enabling Media Download for sure and disabling DRM upload restriction"
 
 comment
 
 if [[ "$isCustom" != "--no-gn" ]];
 then
   . build/android/envsetup.sh
+  gclient runhooks -v
   gn gen out/Default --args='target_os="android" is_debug=false'
   # implementing custom translated lines build
   # now all translatons are stock - but keeping this as a nice w/a
