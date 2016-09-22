@@ -13,22 +13,6 @@ isCustom="$1"
 
 cd $LOCAL_REPO/src
 
-# this is because they placed WebRefiner and WebDefender translation into zip archive >_<
-pushd $LOCAL_REPO/src/components/web_refiner/java/
-  cp -rf $LOCAL_REPO/build/webrefiner/values-ru .
-  zip -0TX libswewebrefiner_java.zip values-ru/strings.xml
-  rm -rf values-ru/
-  git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding WebRefiner and WebDefender translation"
-popd
-
-# get back sign-in and sync
-git revert --no-edit cab298d1cf20f2e93a4e1d39dadcb47568c40ff0
-
-# revert system bundle packaging
-git revert --no-edit 76d1fb2083110a12d74aea99e4013d7fe2b5c64c
-
-cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
-git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
 
 mkdir -p $LOCAL_REPO/src/swe/channels/default/raw/ $LOCAL_REPO/src/swe/channels/system/raw/
 cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/default/raw/
@@ -44,17 +28,25 @@ git add -f $(git status -s | awk '{print $2}') && git commit -m "Enabling Media 
 
 git apply $LOCAL_REPO/build/patches/inox/chromium-sandbox-pie.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Hardening the sandbox with Position Independent Code(PIE) against ROP exploits"
 
+# get back sign-in and sync, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
+git revert --no-edit 0b1f1755740d4235cabc913b0a6397ab085c78ea # Disable unsupported sign-in and sync
+git revert --no-edit 64616dc6f31f18995e74db99376cef6cb70ee887 # Remove snippets UI from NTP
+
+cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
+git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
+
+# I do not know other way to get it themed, sorry
+git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"
+
 :<<comment
 
-  # this commit is here because gclient changes some files and they need to be either reset or committed to make repo clean
-  git add -f $(git status -s | awk '{print $2}') && git commit -m "Dummy"
-
-  # reverting Google capabilities, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
-  # some of them are part of other commits, so had to use patching
-  git apply $LOCAL_REPO/build/patches/signin.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Getting sign-in back"
-
-  # I do not know other way to get it themed, sorry
-  #git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"
+  # this is because they placed WebRefiner and WebDefender translation into zip archive >_<
+  pushd $LOCAL_REPO/src/components/web_refiner/java/
+    cp -rf $LOCAL_REPO/build/webrefiner/values-ru .
+    zip -0TX libswewebrefiner_java.zip values-ru/strings.xml
+    rm -rf values-ru/
+    git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding WebRefiner and WebDefender translation"
+  popd
 
   # removing Google Translate tick as it does not work anyway
   git apply $LOCAL_REPO/build/patches/remove_translate.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Remove page translation tick"
