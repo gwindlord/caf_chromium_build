@@ -31,7 +31,7 @@
       "expiration"      : "5 days"
     },
     {
-      "name"            : "Anti Adblock Filter",
+      "name"            : "Adblock Warning Removal List",
       "category"        : "ADS",
       "format"          : "WebRefiner 1.0",
       "url"             : "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt",
@@ -63,6 +63,20 @@
       "category"        : "ADS",
       "format"          : "WebRefiner 1.0",
       "url"             : "https://raw.githubusercontent.com/reek/anti-adblock-killer/master/anti-adblock-killer-filters.txt",
+      "expiration"      : "5 days"
+    },
+    {
+      "name"            : "MoKee Regional Anti Adblock Filter",
+      "category"        : "ADS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://raw.githubusercontent.com/MoKee/Regional-Anti-Adblock-Filter/master/adblock-filters.txt",
+      "expiration"      : "5 days"
+    },
+    {
+      "name"            : "EasyList China Ad Filter",
+      "category"        : "ADS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://easylist-downloads.adblockplus.org/easylistchina.txt",
       "expiration"      : "5 days"
     }
   ]

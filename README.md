@@ -1,4 +1,4 @@
-# Chromium CAF Snapdragon M53 Build Scripts
+# Chromium CAF Snapdragon Stable Build Scripts
 
 1. Setup build environment as it is described [here](https://www.codeaurora.org/xwiki/bin/Chromium+for+Snapdragon/Setup)
   (though I use OpenJDK instead or Oracle one and everything works)
@@ -14,5 +14,5 @@
 
 Credits go to:
 - [Chromium.org](https://www.chromium.org/);
-- *CodeAurora* for their [code](https://codeaurora.org/cgit/quic/chrome4sdp/chromium/src?h=m53);
+- *CodeAurora* for their [code](https://codeaurora.org/cgit/quic/chrome4sdp/chromium/src);
 - *BachMinuetInG* for his guide;

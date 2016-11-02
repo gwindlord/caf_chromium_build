@@ -20,7 +20,7 @@
       "name"            : "Cookie Block List",
       "category"        : "COOKIE_BLOCK_YELLOW_LIST",
       "format"          : "WebDefender 1.0",
-      "url"             : "https://www.eff.org/files/cookieblocklist.txt",
+      "url"             : "https://www.eff.org/files/cookieblocklist_new.txt",
       "expiration"      : "4 days"
     },
     {
