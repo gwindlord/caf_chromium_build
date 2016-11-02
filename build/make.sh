@@ -27,13 +27,26 @@ cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/cha
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Enabling Media Download for sure and disabling DRM upload restriction"
 
 git apply $LOCAL_REPO/build/patches/inox/chromium-sandbox-pie.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Hardening the sandbox with Position Independent Code(PIE) against ROP exploits"
+git apply $LOCAL_REPO/build/patches/inox/add-duckduckgo-search-engine.diff && git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo search engine as default one"
 
 # get back sign-in and sync, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
-git revert --no-edit 0b1f1755740d4235cabc913b0a6397ab085c78ea # Disable unsupported sign-in and sync
-git revert --no-edit 64616dc6f31f18995e74db99376cef6cb70ee887 # Remove snippets UI from NTP
+# M54
+#git revert --no-edit 9e0363e4c8fc8efdaedc92a56410ffa3a425990f || git add $(git status -s | awk '{print $2}') && git revert --continue # Disable unsupported sign-in and sync
+git apply $LOCAL_REPO/build/patches/signin.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Revert Disable unsupported sign-in and sync"
+git revert --no-edit c414136443d28864ee55f90e09cfc18d7037af4c # Remove snippets UI from NTP
 
 cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
+
+pushd $LOCAL_REPO/src/components/web_refiner/java/
+  cp -rf $LOCAL_REPO/build/webrefiner/raw .
+  zip -0TX libswewebrefiner_java.zip raw/web_defender_configuration.txt
+  rm -rf raw/
+  git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding WebDefender custom configuration"
+popd
+
+cp -f $LOCAL_REPO/build/patches/swe_overlay.xml $LOCAL_REPO/src/chrome/android/java/res_swe/values-ru/
+git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding file with missed Russian translations"
 
 # I do not know other way to get it themed, sorry
 git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"

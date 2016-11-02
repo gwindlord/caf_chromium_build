@@ -1,146 +1,129 @@
-diff --git a/chrome/android/java/src/org/chromium/chrome/browser/ChromeSwitches.java b/chrome/android/java/src/org/chromium/chrome/browser/ChromeSwitches.java
-index f756f83..35054ce 100644
---- a/chrome/android/java/src/org/chromium/chrome/browser/ChromeSwitches.java
-+++ b/chrome/android/java/src/org/chromium/chrome/browser/ChromeSwitches.java
-@@ -32,10 +32,6 @@ public abstract class ChromeSwitches {
-      */
-     public static final String AUTO_UPDATE_SERVER_CMD = "auto-update-server";
+commit 98028cbd6903303f2551332e1dcfe3d801955910
+Author: gwindlord <gwindlord@users.noreply.github.com>
+Date:   Sat Oct 29 16:09:35 2016 +0200
+
+    Revert "Disable unsupported sign-in and sync"
+    
+    This reverts commit 9e0363e4c8fc8efdaedc92a56410ffa3a425990f.
+    
+    Conflicts:
+    	chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
+
+diff --git a/chrome/android/java/src/org/chromium/chrome/browser/bookmarks/BookmarkPromoHeader.java b/chrome/android/java/src/org/chromium/chrome/browser/bookmarks/BookmarkPromoHeader.java
+index 4dc5939..5cb69e7 100644
+--- a/chrome/android/java/src/org/chromium/chrome/browser/bookmarks/BookmarkPromoHeader.java
++++ b/chrome/android/java/src/org/chromium/chrome/browser/bookmarks/BookmarkPromoHeader.java
+@@ -10,10 +10,8 @@ import android.support.v7.widget.RecyclerView;
+ import android.support.v7.widget.RecyclerView.ViewHolder;
+ import android.view.ViewGroup;
  
--    /** This will unblock the Chrome UI that is related to SignIn */
--    public static final String ENABLE_SUPPRESSED_CHROMIUM_FEATURES =
--            "enable-suppressed-chromium-features";
--
-     /** Mimic a low end device */
-     public static final String ENABLE_ACCESSIBILITY_TAB_SWITCHER =
-             "enable-accessibility-tab-switcher";
-diff --git a/chrome/android/java/src/org/chromium/chrome/browser/firstrun/FirstRunFlowSequencer.java b/chrome/android/java/src/org/chromium/chrome/browser/firstrun/FirstRunFlowSequencer.java
-index ddad560..1051547 100644
---- a/chrome/android/java/src/org/chromium/chrome/browser/firstrun/FirstRunFlowSequencer.java
-+++ b/chrome/android/java/src/org/chromium/chrome/browser/firstrun/FirstRunFlowSequencer.java
-@@ -83,10 +83,6 @@ public abstract class FirstRunFlowSequencer  {
+-import org.chromium.base.CommandLine;
+ import org.chromium.base.ContextUtils;
+ import org.chromium.base.metrics.RecordUserAction;
+-import org.chromium.chrome.browser.ChromeSwitches;
+ import org.chromium.chrome.browser.signin.SigninAccessPoint;
+ import org.chromium.chrome.browser.signin.SigninAndSyncView;
+ import org.chromium.chrome.browser.signin.SigninManager;
+@@ -132,9 +130,7 @@ class BookmarkPromoHeader implements AndroidSyncSettingsObserver,
+                 && mSignInManager.isSignInAllowed()
+                 && !wasSigninPromoDeclined()
+                 && ContextUtils.getAppSharedPreferences().getInt(
+-                        PREF_SIGNIN_PROMO_SHOW_COUNT, 0) < MAX_SIGNIN_PROMO_SHOW_COUNT
+-                && CommandLine.getInstance()
+-                .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES);
++                        PREF_SIGNIN_PROMO_SHOW_COUNT, 0) < MAX_SIGNIN_PROMO_SHOW_COUNT;
+         if (oldIsShowing != mShouldShow && notifyUI) {
+             mShowingChangeListener.onPromoHeaderShowingChanged(mShouldShow);
+         }
+diff --git a/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java b/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
+index 845f006..bfdcd8a 100644
+--- a/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
++++ b/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
+@@ -22,10 +22,8 @@ import android.widget.TextView;
  
-     @VisibleForTesting
-     protected boolean isSyncAllowed() {
--        if (!CommandLine.getInstance().
--                hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES))
--            return false;
--
-         return FeatureUtilities.canAllowSync(mActivity)
-                 && !SigninManager.get(mActivity.getApplicationContext()).isSigninDisabledByPolicy();
-     }
-@@ -189,11 +185,8 @@ public abstract class FirstRunFlowSequencer  {
- 
-         freProperties.putBoolean(AccountFirstRunFragment.IS_CHILD_ACCOUNT, hasChildAccount);
- 
--        if (CommandLine.getInstance().
--                hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
--            freProperties.putBoolean(FirstRunActivity.SHOW_DATA_REDUCTION_PAGE,
-+        freProperties.putBoolean(FirstRunActivity.SHOW_DATA_REDUCTION_PAGE,
-                     shouldShowDataReductionPage());
--        }
- 
-         onFlowIsKnown(freProperties);
-         if (hasChildAccount || forceEduSignIn) {
-diff --git a/chrome/android/java/src/org/chromium/chrome/browser/firstrun/ToSAndUMAFirstRunFragment.java b/chrome/android/java/src/org/chromium/chrome/browser/firstrun/ToSAndUMAFirstRunFragment.java
-index 3dc0c25..1c084c1 100644
---- a/chrome/android/java/src/org/chromium/chrome/browser/firstrun/ToSAndUMAFirstRunFragment.java
-+++ b/chrome/android/java/src/org/chromium/chrome/browser/firstrun/ToSAndUMAFirstRunFragment.java
-@@ -56,7 +56,6 @@ public class ToSAndUMAFirstRunFragment extends FirstRunPage {
+ import org.chromium.base.ApiCompatibilityUtils;
+ import org.chromium.base.metrics.RecordHistogram;
+-import org.chromium.base.CommandLine;
+ import org.chromium.base.metrics.RecordUserAction;
+ import org.chromium.chrome.R;
+-import org.chromium.chrome.browser.ChromeSwitches;
+ import org.chromium.chrome.browser.favicon.FaviconHelper.FaviconImageCallback;
+ import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSession;
+ import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSessionTab;
+@@ -888,19 +886,16 @@ public class RecentTabsRowAdapter extends BaseExpandableListAdapter {
+             addGroup(new CurrentlyOpenTabsGroup(tabList));
+         }
+         addGroup(mRecentlyClosedTabsGroup);
+-        if (CommandLine.getInstance()
+-                .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
+-            for (ForeignSession session : mRecentTabsManager.getForeignSessions()) {
+-                if (!mHasForeignDataRecorded) {
+-                    RecordHistogram.recordEnumeratedHistogram("HistoryPage.OtherDevicesMenu",
+-                            OtherSessionsActions.HAS_FOREIGN_DATA, OtherSessionsActions.LIMIT);
+-                    mHasForeignDataRecorded = true;
+-                }
+-                addGroup(new ForeignSessionGroup(session));
+-            }
+-            if (mRecentTabsManager.shouldDisplaySyncPromo()) {
+-                addGroup(new SyncPromoGroup());
++        for (ForeignSession session : mRecentTabsManager.getForeignSessions()) {
++            if (!mHasForeignDataRecorded) {
++                RecordHistogram.recordEnumeratedHistogram("HistoryPage.OtherDevicesMenu",
++                        OtherSessionsActions.HAS_FOREIGN_DATA, OtherSessionsActions.LIMIT);
++                mHasForeignDataRecorded = true;
              }
-         });
++            addGroup(new ForeignSessionGroup(session));
++        }
++        if (mRecentTabsManager.shouldDisplaySyncPromo()) {
++            addGroup(new SyncPromoGroup());
+         }
  
--        if (CommandLine.getInstance().hasSwitch(ChromeSwitches.CRASH_LOG_SERVER_CMD)) {
-             int paddingStart = getResources().getDimensionPixelSize(R.dimen.fre_tos_checkbox_padding);
-             ApiCompatibilityUtils.setPaddingRelative(mSendReportCheckBox,
-                     ApiCompatibilityUtils.getPaddingStart(mSendReportCheckBox) + paddingStart,
-@@ -65,9 +64,6 @@ public class ToSAndUMAFirstRunFragment extends FirstRunPage {
-                     mSendReportCheckBox.getPaddingBottom());
+         // Add separator line after the recently closed tabs group.
+diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
+index b3f8821..e21750f 100644
+--- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
++++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
+@@ -17,7 +17,6 @@ import org.chromium.base.VisibleForTesting;
+ import org.chromium.blimp_public.BlimpClientContext;
+ import org.chromium.chrome.R;
+ import org.chromium.chrome.browser.ChromeFeatureList;
+-import org.chromium.chrome.browser.ChromeSwitches;
+ import org.chromium.chrome.browser.PasswordUIView;
+ import org.chromium.chrome.browser.autofill.PersonalDataManager;
+ import org.chromium.chrome.browser.blimp.BlimpClientContextFactory;
+@@ -189,13 +188,8 @@ public class MainPreferences extends PreferenceFragment implements SignInStateOb
  
-             mSendReportCheckBox.setChecked(!getPageDelegate().isNeverUploadCrashDump());
+     private void setupSignInPref() {
+         mSignInPreference = (SignInPreference) findPreference(PREF_SIGN_IN);
+-        if (!CommandLine.getInstance()
+-                .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
+-            getPreferenceScreen().removePreference(mSignInPreference);
 -        } else {
--            mSendReportCheckBox.setVisibility(View.GONE);
+-            mSignInPreference.registerForUpdates();
+-            mSignInPreference.setEnabled(true);
 -        }
- 
-         mTosAndPrivacy.setMovementMethod(LinkMovementMethod.getInstance());
- 
-diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/Preferences.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/Preferences.java
-index 842cde5..854b167 100644
---- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/Preferences.java
-+++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/Preferences.java
-@@ -214,13 +214,9 @@ public class Preferences extends AppCompatActivity implements
-     public boolean onCreateOptionsMenu(Menu menu) {
-         super.onCreateOptionsMenu(menu);
-         // By default, every screen in Settings shows a "Help & feedback" menu item.
--        if(CommandLine.getInstance()
--                .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
-             MenuItem help = menu.add(
-                     Menu.NONE, R.id.menu_id_general_help, Menu.CATEGORY_SECONDARY, R.string.menu_help);
-             help.setIcon(R.drawable.ic_help_and_feedback);
--            return true;
--        }
-         return true;
++        mSignInPreference.registerForUpdates();
++        mSignInPreference.setEnabled(true);
      }
  
-diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/datareduction/DataReductionPromoScreen.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/datareduction/DataReductionPromoScreen.java
-index 9fc8ac9..32fc99b 100644
---- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/datareduction/DataReductionPromoScreen.java
-+++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/datareduction/DataReductionPromoScreen.java
-@@ -43,10 +43,6 @@ public class DataReductionPromoScreen extends Dialog implements View.OnClickList
-      * Launch the data reduction promo, if it needs to be displayed.
-      */
-     public static void launchDataReductionPromo(Activity parentActivity) {
--        if (!CommandLine.getInstance().
--                hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
--            return;
--        }
-         // The promo is displayed if Chrome is launched directly (i.e., not with the intent to
-         // navigate to and view a URL on startup), the instance is part of the field trial,
-         // and the promo has not been displayed before.
-diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/privacy/PrivacyPreferences.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/privacy/PrivacyPreferences.java
-index b596ebf..faa61e1 100644
---- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/privacy/PrivacyPreferences.java
-+++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/privacy/PrivacyPreferences.java
-@@ -77,11 +77,7 @@ public class PrivacyPreferences extends PreferenceFragment
-                 (ChromeBaseCheckBoxPreference) findPreference(PREF_CRASH_DUMP_UPLOAD_NO_CELLULAR);
+     private void clearSignInPref() {
+diff --git a/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java b/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
+index f8c90d65..52fd33b 100644
+--- a/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
++++ b/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
+@@ -13,7 +13,6 @@ import android.content.DialogInterface;
+ import android.preference.Preference;
+ import android.support.v7.app.AlertDialog;
+ import android.test.suitebuilder.annotation.MediumTest;
+-import android.test.suitebuilder.annotation.Suppress;
+ import android.widget.Button;
  
-         PreferenceScreen preferenceScreen = getPreferenceScreen();
--        if (!CommandLine.getInstance().hasSwitch(ChromeSwitches.CRASH_LOG_SERVER_CMD)) {
--            preferenceScreen.removePreference(uploadCrashDumpNoCellularPref);
--            preferenceScreen.removePreference(uploadCrashDumpPref);
--            preferenceScreen.removePreference(findPreference(PREF_USAGE_AND_CRASH_REPORTING));
--        } else if (privacyPrefManager.isCellularExperimentEnabled()) {
-+        if (privacyPrefManager.isCellularExperimentEnabled()) {
-             preferenceScreen.removePreference(uploadCrashDumpNoCellularPref);
-             preferenceScreen.removePreference(uploadCrashDumpPref);
-         } else {
-@@ -287,12 +283,9 @@ public class PrivacyPreferences extends PreferenceFragment
-     @Override
-     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-         menu.clear();
--        if(CommandLine.getInstance()
--                .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
-             MenuItem help = menu.add(
-                     Menu.NONE, R.id.menu_id_targeted_help, Menu.NONE, R.string.menu_help);
-             help.setIcon(R.drawable.ic_help_and_feedback);
--        }
+ import org.chromium.base.ThreadUtils;
+@@ -287,7 +286,6 @@ public class SigninTest extends ChromeTabbedActivityTestBase {
      }
  
-     @Override
-diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java
-index 6e65da9..3ad6556 100644
---- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java
-+++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/website/LanguagePreferences.java
-@@ -80,13 +80,10 @@ public class LanguagePreferences extends PreferenceFragment {
-     @Override
-     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-         menu.clear();
--        if(CommandLine.getInstance()
--                .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
-             MenuItem help = menu.add(
-                     Menu.NONE, R.id.menu_id_targeted_help, Menu.NONE, R.string.menu_help);
-             help.setIcon(R.drawable.ic_help_and_feedback);
-             help.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
--        }
- 
-         menu.add(Menu.NONE, R.id.menu_id_reset, Menu.NONE, R.string.reset_translate_defaults);
-     }
+     @MediumTest
+-    @Suppress
+     @Restriction(ChromeRestriction.RESTRICTION_TYPE_GOOGLE_PLAY_SERVICES)
+     public void testConsumerSignin() throws InterruptedException {
+         SigninTestUtil.addTestAccount();
