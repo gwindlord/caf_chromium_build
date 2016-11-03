@@ -13,11 +13,10 @@ isCustom="$1"
 
 cd $LOCAL_REPO/src
 
-
 mkdir -p $LOCAL_REPO/src/swe/channels/default/raw/ $LOCAL_REPO/src/swe/channels/system/raw/
 cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/default/raw/
 cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/system/raw/
-git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo and Bing search engines"
+git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo and Bing search engines preload"
 
 mkdir -p $LOCAL_REPO/src/swe/channels/default/values/ $LOCAL_REPO/src/swe/channels/system/values/
 cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/default/values/
@@ -26,8 +25,13 @@ cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/cha
 cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/system/values/
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Enabling Media Download for sure and disabling DRM upload restriction"
 
+# Inox patches
 git apply $LOCAL_REPO/build/patches/inox/chromium-sandbox-pie.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Hardening the sandbox with Position Independent Code(PIE) against ROP exploits"
-git apply $LOCAL_REPO/build/patches/inox/add-duckduckgo-search-engine.diff && git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo search engine as default one"
+git apply $LOCAL_REPO/build/patches/inox/add-duckduckgo-search-engine.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo search engine"
+
+# ungoogled patches
+git apply $LOCAL_REPO/build/patches/ungoogled/add-nosearch-search-engine.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding search engine to disable searching in the omnibox"
+git apply $LOCAL_REPO/build/patches/ungoogled/remove-get-help-button.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Removes the 'Get help with using Chromium' button"
 
 # get back sign-in and sync, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
 # M54
@@ -49,7 +53,7 @@ cp -f $LOCAL_REPO/build/patches/swe_overlay.xml $LOCAL_REPO/src/chrome/android/j
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding file with missed Russian translations"
 
 # I do not know other way to get it themed, sorry
-git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"
+#git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"
 
 :<<comment
 

@@ -1,10 +1,10 @@
 diff --git a/swe/channels/default/branding/BRANDING b/swe/channels/default/branding/BRANDING
-index a8d0ac4..e59b36d 100644
+index 90996ec..e59b36d 100644
 --- a/swe/channels/default/branding/BRANDING
 +++ b/swe/channels/default/branding/BRANDING
 @@ -5,4 +5,4 @@ PRODUCT_SHORTNAME=Browser
  PRODUCT_INSTALLER_FULLNAME=Snapdragon Installer
  PRODUCT_INSTALLER_SHORTNAME=Snapdragon Installer
  COPYRIGHT=Copyright (c) 2015 The Linux Foundation. All rights reserved.
--PACKAGE_NAME=org.codeaurora.swe.browser.dev
+-PACKAGE_NAME=org.codeaurora.swe.browser
 +PACKAGE_NAME=com.chrome.beta
