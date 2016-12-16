@@ -1,16 +1,16 @@
-diff --git a/sandbox/linux/sandbox_linux.gypi b/sandbox/linux/sandbox_linux.gypi
-index 9576802..9f73c8b 100644
---- a/sandbox/linux/sandbox_linux.gypi
-+++ b/sandbox/linux/sandbox_linux.gypi
-@@ -205,7 +205,10 @@
-       ],
-       'cflags': [
-         # For ULLONG_MAX
--        '-std=gnu99',
-+        '-std=gnu99 -fPIE',
-+      ],
-+      'ldflags': [
-+        '-pie',
-       ],
-       'include_dirs': [
-         '../..',
+diff --git a/sandbox/linux/BUILD.gn b/sandbox/linux/BUILD.gn
+index 1e6d7a1..8b30ce0 100644
+--- a/sandbox/linux/BUILD.gn
++++ b/sandbox/linux/BUILD.gn
+@@ -282,6 +282,11 @@ if (is_linux) {
+       # These files have a suspicious comparison.
+       # TODO fix this and re-enable this warning.
+       "-Wno-sign-compare",
++      "-fPIE",
++    ]
++
++    ldflags = [
++      "-pie",
+     ]
+ 
+     import("//build/config/compiler/compiler.gni")

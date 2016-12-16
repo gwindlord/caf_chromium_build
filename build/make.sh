@@ -36,8 +36,8 @@ git apply $LOCAL_REPO/build/patches/ungoogled/remove-get-help-button.patch && gi
 # get back sign-in and sync, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
 # M54
 #git revert --no-edit 9e0363e4c8fc8efdaedc92a56410ffa3a425990f || git add $(git status -s | awk '{print $2}') && git revert --continue # Disable unsupported sign-in and sync
-git apply $LOCAL_REPO/build/patches/signin.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Revert Disable unsupported sign-in and sync"
-git revert --no-edit c414136443d28864ee55f90e09cfc18d7037af4c # Remove snippets UI from NTP
+git apply $LOCAL_REPO/build/patches/signin.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Revert 'Disable unsupported sign-in and sync' and 'Remove snippets UI from NTP'"
+#git revert --no-edit c414136443d28864ee55f90e09cfc18d7037af4c # Remove snippets UI from NTP
 
 cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
@@ -76,7 +76,7 @@ if [[ "$isCustom" != "--no-gn" ]];
 then
   . build/android/envsetup.sh
   gclient runhooks -v
-  gn gen out/Default --args='target_os="android" is_debug=false'
+  gn gen out/Default --args='target_os="android" is_debug=false symbol_level=1'
   # implementing custom translated lines build
   # now all translatons are stock - but keeping this as a nice w/a
   #patch -p0 < $LOCAL_REPO/build/patches/chrome_strings_grd_ninja.diff

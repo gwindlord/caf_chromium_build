@@ -1,14 +1,3 @@
-commit 98028cbd6903303f2551332e1dcfe3d801955910
-Author: gwindlord <gwindlord@users.noreply.github.com>
-Date:   Sat Oct 29 16:09:35 2016 +0200
-
-    Revert "Disable unsupported sign-in and sync"
-    
-    This reverts commit 9e0363e4c8fc8efdaedc92a56410ffa3a425990f.
-    
-    Conflicts:
-    	chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
-
 diff --git a/chrome/android/java/src/org/chromium/chrome/browser/bookmarks/BookmarkPromoHeader.java b/chrome/android/java/src/org/chromium/chrome/browser/bookmarks/BookmarkPromoHeader.java
 index 4dc5939..5cb69e7 100644
 --- a/chrome/android/java/src/org/chromium/chrome/browser/bookmarks/BookmarkPromoHeader.java
@@ -36,7 +25,7 @@ index 4dc5939..5cb69e7 100644
              mShowingChangeListener.onPromoHeaderShowingChanged(mShouldShow);
          }
 diff --git a/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java b/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
-index 845f006..bfdcd8a 100644
+index acbfe6d..00e205b 100644
 --- a/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
 +++ b/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
 @@ -22,10 +22,8 @@ import android.widget.TextView;
@@ -79,11 +68,36 @@ index 845f006..bfdcd8a 100644
          }
  
          // Add separator line after the recently closed tabs group.
+diff --git a/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java b/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java
+index d1a38b8..58dfa4d 100644
+--- a/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java
++++ b/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java
+@@ -4,9 +4,7 @@
+ 
+ package org.chromium.chrome.browser.ntp.snippets;
+ 
+-import org.chromium.base.CommandLine;
+ import org.chromium.chrome.browser.ChromeFeatureList;
+-import org.chromium.chrome.browser.ChromeSwitches;
+ import org.chromium.chrome.browser.preferences.PrefServiceBridge;
+ 
+ /**
+@@ -17,9 +15,7 @@ public final class SnippetsConfig {
+ 
+     public static boolean isEnabled() {
+         return ChromeFeatureList.isEnabled(ChromeFeatureList.NTP_SNIPPETS)
+-                && PrefServiceBridge.getInstance().isSearchSuggestEnabled()
+-                && CommandLine.getInstance()
+-                        .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES);
++                && PrefServiceBridge.getInstance().isSearchSuggestEnabled();
+     }
+ 
+     public static boolean isSaveToOfflineEnabled() {
 diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
-index b3f8821..e21750f 100644
+index a084eef..27bb1a4 100644
 --- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
 +++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
-@@ -17,7 +17,6 @@ import org.chromium.base.VisibleForTesting;
+@@ -16,7 +16,6 @@ import org.chromium.base.VisibleForTesting;
  import org.chromium.blimp_public.BlimpClientContext;
  import org.chromium.chrome.R;
  import org.chromium.chrome.browser.ChromeFeatureList;
@@ -91,7 +105,7 @@ index b3f8821..e21750f 100644
  import org.chromium.chrome.browser.PasswordUIView;
  import org.chromium.chrome.browser.autofill.PersonalDataManager;
  import org.chromium.chrome.browser.blimp.BlimpClientContextFactory;
-@@ -189,13 +188,8 @@ public class MainPreferences extends PreferenceFragment implements SignInStateOb
+@@ -184,13 +183,8 @@ public class MainPreferences extends PreferenceFragment
  
      private void setupSignInPref() {
          mSignInPreference = (SignInPreference) findPreference(PREF_SIGN_IN);
@@ -108,7 +122,7 @@ index b3f8821..e21750f 100644
  
      private void clearSignInPref() {
 diff --git a/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java b/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
-index f8c90d65..52fd33b 100644
+index 63c70f0..1ab3884 100644
 --- a/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
 +++ b/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
 @@ -13,7 +13,6 @@ import android.content.DialogInterface;
