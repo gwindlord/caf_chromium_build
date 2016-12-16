@@ -889,7 +889,7 @@
 
   <!-- XSS Defender -->
   <string name="xss_defender_title">"Защитник XSS - Beta"</string>
-  <string name="xss_defender_summary">"Защищает от междусайтовых скриптовых атак."</string>
+  <string name="xss_defender_summary">"Защищает от межсайтовых скриптовых атак."</string>
 
   <!-- Incognito Only mode -->
   <string name="incognito_only_title">"Режим \"Только инкогнито\""</string>
