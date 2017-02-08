@@ -886,10 +886,17 @@
   <string name="secure_connect_secure_content_only_summary">"Используйте это для недоверенных сетей или страниц, чтобы заблокировать все незащищенное содержимое. Эта настройка не сохраняется при перезапуске, поскольку может повлиять на открытие страниц."</string>
   <string name="secure_connect_secure_content_snackbar">"Разрешено только защищенное содержимое. Незащищенные подключения заблокированы."</string>
   <string name="secure_connect_secure_content_snackbar_action">"Отключить"</string>
-
-  <!-- XSS Defender -->
-  <string name="xss_defender_title">"Защитник XSS - Beta"</string>
-  <string name="xss_defender_summary">"Защищает от межсайтовых скриптовых атак."</string>
+  <string name="tooltip_favicon_page_mainframe_upgraded">&quot;Эта страница переведена на защищенное HTTPS-подключение. Нажмите на значок для подробностей.&quot;</string>
+  <string name="tooltip_favicon_page_mixed_content">&quot;Эта страница состоит из смешанного содержимого и может быть небезопасной.&quot;</string>
+  <string name="tooltip_favicon_page_subframes_upgraded">&quot;Некоторые элементы этой страницы переведены на защищенное HTTPS-подключение.&quot;</string>
+  <string name="secure_connect_secure_content_network">&quot;Предлагать защищенное содержимое для сети&quot;</string>
+  <string name="secure_connect_secure_content_network_summary">&quot;Предлагать разрешать только защищенное содержимое, когда вы подключаетесь к новой сети и запомнить выбор.&quot;</string>
+  <string name="secure_connect_secure_content_network_enable">&quot;Разрешать только защищенное содержимое для сети&quot;</string>
+  <string name="secure_connect_secure_content_network_dialog">&quot;Вы хотите разрешить только защищенное содержимое для текущей сети? Это полезно в случае недоверенных сетей или страниц, чтобы заблокировать любое незащищенное содержимое.&quot;</string>
+  <string name="website_settings_secure_connect_configure_rulesets">&quot;Настроить правила для Subframe:&quot;</string>
+  <string name="website_settings_secure_connect_configure_mainframe">&quot;Настроить правила для Mainframe:&quot;</string>
+  <string name="website_settings_secure_connect_disabled_rulesets">&quot;Отключить правила:&quot;</string>
+  <string name="infobar_permission_spinner_title">&quot;Разрешить:&quot;</string>
 
   <!-- Incognito Only mode -->
   <string name="incognito_only_title">"Режим \"Только инкогнито\""</string>
@@ -903,4 +910,12 @@
   <string name="prefs_search_engine_regular">"Поисковая система для обычных вкладок"</string>
   <string name="prefs_search_engine_incognito">"Поисковая система для инкогнито-вкладок"</string>
 
+  <!-- XSS Defender -->
+  <string name="xss_defender_title">"Защитник XSS - Beta"</string>
+  <string name="xss_defender_summary">"Защищает от межсайтовых скриптовых атак."</string>
+  <string name="xss_defender_about_text">&quot;XSS-Defender защищает вас от protects you from межсайтовых скриптовых атак (XSS). Это распространненая в сети угроза, направленная на кражу личных данных .&quot;</string>
+  <string name="xss_defender_enable">&quot;Включить Защитник XSS (beta)&quot;</string>
+
+  <string name="do_not_show_msg">"Больше не показывать"</string>
+  <string name="ntp_downloads">&quot;Загрузки&quot;</string>
 </resources>

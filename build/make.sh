@@ -13,9 +13,9 @@ isCustom="$1"
 
 cd $LOCAL_REPO/src
 
-mkdir -p $LOCAL_REPO/src/swe/channels/default/raw/ $LOCAL_REPO/src/swe/channels/system/raw/
-cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/default/raw/
-cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/system/raw/
+mkdir -p $LOCAL_REPO/src/swe/channels/default/res/raw/ $LOCAL_REPO/src/swe/channels/system/res/raw/
+cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/default/res/raw/
+cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/system/res/raw/
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo and Bing search engines preload"
 
 mkdir -p $LOCAL_REPO/src/swe/channels/default/values/ $LOCAL_REPO/src/swe/channels/system/values/
@@ -54,6 +54,9 @@ git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding file wit
 
 # I do not know other way to get it themed, sorry
 #git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"
+
+# better broken night mode than none
+git revert --no-edit 9c20e31570e0c3baf04d178161401896b2228d0c
 
 :<<comment
 

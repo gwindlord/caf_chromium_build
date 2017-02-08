@@ -78,6 +78,13 @@
       "format"          : "WebRefiner 1.0",
       "url"             : "https://easylist-downloads.adblockplus.org/easylistchina.txt",
       "expiration"      : "5 days"
+    },
+    {
+      "name"            : "AdGuard Russian Filter",
+      "category"        : "ADS",
+      "format"          : "WebRefiner 1.0",
+      "url"             : "https://adguard.com/en/filter-rules.html?id=1",
+      "expiration"      : "5 days"
     }
   ]
 }
