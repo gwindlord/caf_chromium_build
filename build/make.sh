@@ -18,11 +18,11 @@ cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/
 cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/system/res/raw/
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo and Bing search engines preload"
 
-mkdir -p $LOCAL_REPO/src/swe/channels/default/values/ $LOCAL_REPO/src/swe/channels/system/values/
-cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/default/values/
-cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/system/values/
-cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/default/values/
-cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/system/values/
+mkdir -p $LOCAL_REPO/src/swe/channels/default/res/values/ $LOCAL_REPO/src/swe/channels/system/res/values/
+cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/default/res/values/
+cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/system/res/values/
+cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/default/res/values/
+cp -f $LOCAL_REPO/build/patches/swe_features/strings.xml $LOCAL_REPO/src/swe/channels/system/res/values/
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Enabling Media Download for sure and disabling DRM upload restriction"
 
 # Inox patches
@@ -34,10 +34,7 @@ git apply $LOCAL_REPO/build/patches/ungoogled/add-nosearch-search-engine.patch &
 git apply $LOCAL_REPO/build/patches/ungoogled/remove-get-help-button.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Removes the 'Get help with using Chromium' button"
 
 # get back sign-in and sync, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
-# M54
-#git revert --no-edit 9e0363e4c8fc8efdaedc92a56410ffa3a425990f || git add $(git status -s | awk '{print $2}') && git revert --continue # Disable unsupported sign-in and sync
 git apply $LOCAL_REPO/build/patches/signin.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Revert 'Disable unsupported sign-in and sync' and 'Remove snippets UI from NTP'"
-#git revert --no-edit c414136443d28864ee55f90e09cfc18d7037af4c # Remove snippets UI from NTP
 
 cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
@@ -54,9 +51,6 @@ git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding file wit
 
 # I do not know other way to get it themed, sorry
 #git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"
-
-# better broken night mode than none
-git revert --no-edit 9c20e31570e0c3baf04d178161401896b2228d0c
 
 :<<comment
 

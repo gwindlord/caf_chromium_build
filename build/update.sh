@@ -13,6 +13,10 @@ pushd $LOCAL_REPO/src
   rm -rf out
 popd
 
+pushd $LOCAL_REPO/src/v8
+  git reset --hard HEAD
+popd
+
 #gclient sync --with_branch_heads
-gclient sync -v -r refs/remotes/origin/m55
+gclient sync -v -r refs/remotes/origin/m56
 

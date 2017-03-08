@@ -69,7 +69,7 @@ index acbfe6d..00e205b 100644
  
          // Add separator line after the recently closed tabs group.
 diff --git a/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java b/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java
-index d1a38b8..58dfa4d 100644
+index 31f2fbe..9b7557a 100644
 --- a/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java
 +++ b/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java
 @@ -4,9 +4,7 @@
@@ -79,22 +79,22 @@ index d1a38b8..58dfa4d 100644
 -import org.chromium.base.CommandLine;
  import org.chromium.chrome.browser.ChromeFeatureList;
 -import org.chromium.chrome.browser.ChromeSwitches;
- import org.chromium.chrome.browser.preferences.PrefServiceBridge;
  
  /**
-@@ -17,9 +15,7 @@ public final class SnippetsConfig {
+  * Provides configuration details for NTP snippets.
+@@ -15,9 +13,7 @@ public final class SnippetsConfig {
+     private SnippetsConfig() {}
  
      public static boolean isEnabled() {
-         return ChromeFeatureList.isEnabled(ChromeFeatureList.NTP_SNIPPETS)
--                && PrefServiceBridge.getInstance().isSearchSuggestEnabled()
+-        return ChromeFeatureList.isEnabled(ChromeFeatureList.NTP_SNIPPETS)
 -                && CommandLine.getInstance()
 -                        .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES);
-+                && PrefServiceBridge.getInstance().isSearchSuggestEnabled();
++        return ChromeFeatureList.isEnabled(ChromeFeatureList.NTP_SNIPPETS);
      }
  
      public static boolean isSaveToOfflineEnabled() {
 diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
-index a084eef..27bb1a4 100644
+index e3be5e8..eba4997 100644
 --- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
 +++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
 @@ -16,7 +16,6 @@ import org.chromium.base.VisibleForTesting;
@@ -105,7 +105,7 @@ index a084eef..27bb1a4 100644
  import org.chromium.chrome.browser.PasswordUIView;
  import org.chromium.chrome.browser.autofill.PersonalDataManager;
  import org.chromium.chrome.browser.blimp.BlimpClientContextFactory;
-@@ -184,13 +183,8 @@ public class MainPreferences extends PreferenceFragment
+@@ -185,13 +184,8 @@ public class MainPreferences extends PreferenceFragment
  
      private void setupSignInPref() {
          mSignInPreference = (SignInPreference) findPreference(PREF_SIGN_IN);
