@@ -52,6 +52,11 @@ git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding file wit
 # I do not know other way to get it themed, sorry
 #git apply $LOCAL_REPO/build/patches/themes.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Masking to Chrome Beta for themes support :->"
 
+pushd $LOCAL_REPO/src/third_party/ffmpeg
+  git apply $LOCAL_REPO/build/patches/hevc.patch
+  git add -f $(git status -s | awk '{print $2}') && git commit -m "HEVC support"
+popd
+
 :<<comment
 
   # this is because they placed WebRefiner and WebDefender translation into zip archive >_<
@@ -73,7 +78,7 @@ if [[ "$isCustom" != "--no-gn" ]];
 then
   . build/android/envsetup.sh
   gclient runhooks -v
-  gn gen out/Default --args='target_os="android" is_debug=false symbol_level=1'
+  gn gen out/Default --args='target_os="android" is_debug=false symbol_level=1 enable_ac3_eac3_audio_demuxing=true enable_google_now=false enable_hevc_demuxing=true enable_hotwording=false enable_iterator_debugging=false enable_mse_mpeg2ts_stream_parser=true exclude_unwind_tables=true ffmpeg_branding="Chrome" is_component_build=false proprietary_codecs=true remove_webcore_debug_symbols=true enable_hangout_services_extension=true enable_webrtc=true enable_widevine=true rtc_use_h264=true use_openh264=true chrome_pgo_phase=0 full_wpo_on_official=false'
   # implementing custom translated lines build
   # now all translatons are stock - but keeping this as a nice w/a
   #patch -p0 < $LOCAL_REPO/build/patches/chrome_strings_grd_ninja.diff
