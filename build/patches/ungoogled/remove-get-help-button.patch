@@ -1,12 +1,26 @@
 diff --git a/chrome/browser/resources/help/help_content.html b/chrome/browser/resources/help/help_content.html
-index 05b19b0..3e85a66 100644
+index 1c82f60..8e21bb1 100644
 --- a/chrome/browser/resources/help/help_content.html
 +++ b/chrome/browser/resources/help/help_content.html
 @@ -9,7 +9,6 @@
      </div>
    </div>
    <div id="help-container">
--    <button id="get-help" i18n-content="getHelpWithChrome"></button>
+-    <button id="get-help">$i18n{getHelpWithChrome}</button>
  <if expr="_google_chrome">
-     <button id="report-issue" i18n-content="reportAnIssue"></button>
+     <button id="report-issue">$i18n{reportAnIssue}</button>
  </if>
+diff --git a/chrome/browser/resources/help/help_page.js b/chrome/browser/resources/help/help_page.js
+index 018b252..a3459b1 100644
+--- a/chrome/browser/resources/help/help_page.js
++++ b/chrome/browser/resources/help/help_page.js
+@@ -91,9 +91,6 @@ cr.define('help', function() {
+       if (productTOS)
+         productTOS.innerHTML = loadTimeData.getString('productTOS');
+ 
+-      $('get-help').onclick = function() {
+-        chrome.send('openHelpPage');
+-      };
+ // <if expr="_google_chrome">
+       $('report-issue').onclick = function() {
+         chrome.send('openFeedbackDialog');

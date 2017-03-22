@@ -25,7 +25,7 @@ index 4dc5939..5cb69e7 100644
              mShowingChangeListener.onPromoHeaderShowingChanged(mShouldShow);
          }
 diff --git a/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java b/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
-index acbfe6d..00e205b 100644
+index 872e76d..a114cf1 100644
 --- a/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
 +++ b/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
 @@ -22,10 +22,8 @@ import android.widget.TextView;
@@ -39,9 +39,9 @@ index acbfe6d..00e205b 100644
  import org.chromium.chrome.browser.favicon.FaviconHelper.FaviconImageCallback;
  import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSession;
  import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSessionTab;
-@@ -888,19 +886,16 @@ public class RecentTabsRowAdapter extends BaseExpandableListAdapter {
-             addGroup(new CurrentlyOpenTabsGroup(tabList));
-         }
+@@ -755,19 +753,16 @@ public class RecentTabsRowAdapter extends BaseExpandableListAdapter {
+     public void notifyDataSetChanged() {
+         mGroups.clear();
          addGroup(mRecentlyClosedTabsGroup);
 -        if (CommandLine.getInstance()
 -                .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
@@ -94,18 +94,18 @@ index 31f2fbe..9b7557a 100644
  
      public static boolean isSaveToOfflineEnabled() {
 diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
-index e3be5e8..eba4997 100644
+index 46afe21..fb6fbab 100644
 --- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
 +++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
-@@ -16,7 +16,6 @@ import org.chromium.base.VisibleForTesting;
- import org.chromium.blimp_public.BlimpClientContext;
+@@ -15,7 +15,6 @@ import org.chromium.base.CommandLine;
+ import org.chromium.base.VisibleForTesting;
  import org.chromium.chrome.R;
  import org.chromium.chrome.browser.ChromeFeatureList;
 -import org.chromium.chrome.browser.ChromeSwitches;
  import org.chromium.chrome.browser.PasswordUIView;
  import org.chromium.chrome.browser.autofill.PersonalDataManager;
- import org.chromium.chrome.browser.blimp.BlimpClientContextFactory;
-@@ -185,13 +184,8 @@ public class MainPreferences extends PreferenceFragment
+ import org.chromium.chrome.browser.net.spdyproxy.DataReductionProxySettings;
+@@ -168,13 +167,8 @@ public class MainPreferences extends PreferenceFragment
  
      private void setupSignInPref() {
          mSignInPreference = (SignInPreference) findPreference(PREF_SIGN_IN);
@@ -122,22 +122,14 @@ index e3be5e8..eba4997 100644
  
      private void clearSignInPref() {
 diff --git a/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java b/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
-index 63c70f0..1ab3884 100644
+index 1425553..daed0a1 100644
 --- a/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
 +++ b/chrome/android/javatests/src/org/chromium/chrome/browser/signin/SigninTest.java
-@@ -13,7 +13,6 @@ import android.content.DialogInterface;
- import android.preference.Preference;
- import android.support.v7.app.AlertDialog;
- import android.test.suitebuilder.annotation.MediumTest;
--import android.test.suitebuilder.annotation.Suppress;
- import android.widget.Button;
- 
- import org.chromium.base.ThreadUtils;
-@@ -287,7 +286,6 @@ public class SigninTest extends ChromeTabbedActivityTestBase {
+@@ -270,7 +270,6 @@ public class SigninTest extends ChromeTabbedActivityTestBase {
      }
  
      @MediumTest
 -    @Suppress
      @Restriction(ChromeRestriction.RESTRICTION_TYPE_GOOGLE_PLAY_SERVICES)
-     public void testConsumerSignin() throws InterruptedException {
+     public void testConsumerSignin() {
          SigninTestUtil.addTestAccount();
