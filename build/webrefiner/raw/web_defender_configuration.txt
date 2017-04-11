@@ -30,5 +30,14 @@
       "url"             : "https://raw.githubusercontent.com/liamja/Prebake/master/obtrusive.txt",
       "expiration"      : "7 days"
     }
+  ],
+  "updates": [
+    {
+      "name"            : "Sister domain whitelist",
+      "category"        : "SISTER_DOMAIN_WHITE_LIST",
+      "format"          : "WebDefender 1.0",
+      "url"             : "about:blank",
+      "expiration"      : "1 day"
+    }
   ]
 }

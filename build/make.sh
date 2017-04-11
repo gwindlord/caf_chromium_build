@@ -30,13 +30,14 @@ git apply $LOCAL_REPO/build/patches/inox/chromium-sandbox-pie.patch && git add -
 git apply $LOCAL_REPO/build/patches/inox/add-duckduckgo-search-engine.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo search engine"
 
 # ungoogled patches
-git apply $LOCAL_REPO/build/patches/ungoogled/add-nosearch-search-engine.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding search engine to disable searching in the omnibox"
+#git apply $LOCAL_REPO/build/patches/ungoogled/add-nosearch-search-engine.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding search engine to disable searching in the omnibox"
 git apply $LOCAL_REPO/build/patches/ungoogled/remove-get-help-button.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Removes the 'Get help with using Chromium' button"
 
 # get back sign-in and sync, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
 git apply $LOCAL_REPO/build/patches/signin.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Revert 'Disable unsupported sign-in and sync' and 'Remove snippets UI from NTP'"
 
 cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
+cp -f $LOCAL_REPO/build/webrefiner/raw/web_defender_configuration.txt $LOCAL_REPO/src/chrome/android/java/res/raw/web_defender_ex.conf
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
 
 pushd $LOCAL_REPO/src/components/web_refiner/java/
@@ -56,6 +57,9 @@ pushd $LOCAL_REPO/src/third_party/ffmpeg
   git apply $LOCAL_REPO/build/patches/hevc.patch
   git add -f $(git status -s | awk '{print $2}') && git commit -m "HEVC support"
 popd
+
+# getting back search engines for incognito tabs setting
+#git revert f38a5a8a2dbbb46beb0c235c4e0c1a75c775c8b6 --no-edit
 
 :<<comment
 

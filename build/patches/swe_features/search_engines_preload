@@ -2,12 +2,6 @@
     "version": "1.0",
     "searchEngines": [
         {
-        "name": "Google",
-        "keyword": "google.com",
-        "searchUrl": "{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:iOSSearchLanguage}{google:searchClient}{google:sourceId}{google:instantExtendedEnabledParameter}{google:contextualSearchVersion}ie={inputEncoding}",
-        "faviconUrl": "http://www.google.com/favicon.ico"
-        },
-        {
         "name": "DuckDuckGo",
         "keyword": "duckduckgo.com",
         "searchUrl": "https://duckduckgo.com/?q={searchTerms}",
@@ -22,6 +16,5 @@
         "id": 1003
         }
     ],
-    "default": 0,
-    "default_incognito" : 1
+    "default_incognito" : 0
 }

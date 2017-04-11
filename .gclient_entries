@@ -98,7 +98,7 @@ entries = {
   'src/tools/gyp': 'git://codeaurora.org/quic/chrome4sdp/external/gyp.git@e7079f0e0e14108ab0dba58728ff219637458563',
   'src/tools/page_cycler/acid3': 'git://codeaurora.org/quic/chrome4sdp/chromium/deps/acid3.git@6be0a66a1ebd7ebc5abc1b2f405a945f6d871521',
   'src/tools/swarming_client': 'git://codeaurora.org/quic/chrome4sdp/external/swarming.client.git@ebc8dab6f8b8d79ec221c94de39a921145abd404',
-  'src/v8': 'git://webtech-devx.qualcomm.com/swe/packages/v8.git@b93881f3ce28ae5483db11392c574b129e4c68b1',
+  'src/v8': 'git://webtech-devx.qualcomm.com/swe/packages/v8.git@1df0c44538dc874c47fdda033372410fea887552',
   'src/buildtools/clang_format/script': 'https://chromium.googlesource.com/chromium/llvm-project/cfe/tools/clang-format.git@6a413e91d56d6fd0a6ff2f97c905c6dc5ca5d789',
   'src/buildtools/third_party/libc++/trunk': 'https://chromium.googlesource.com/chromium/llvm-project/libcxx.git@b1ece9c037d879843b0b0f5a2802e1e9d443b75a',
   'src/buildtools/third_party/libc++abi/trunk': 'https://chromium.googlesource.com/chromium/llvm-project/libcxxabi.git@0edb61e2e581758fc4cd4cd09fc588b3fc91a653',
