@@ -25,7 +25,7 @@ index 4dc5939..5cb69e7 100644
              mShowingChangeListener.onPromoHeaderShowingChanged(mShouldShow);
          }
 diff --git a/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java b/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
-index 872e76d..91bed41 100644
+index 872e76d..a114cf1 100644
 --- a/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
 +++ b/chrome/android/java/src/org/chromium/chrome/browser/ntp/RecentTabsRowAdapter.java
 @@ -22,10 +22,8 @@ import android.widget.TextView;
@@ -39,28 +39,65 @@ index 872e76d..91bed41 100644
  import org.chromium.chrome.browser.favicon.FaviconHelper.FaviconImageCallback;
  import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSession;
  import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSessionTab;
-@@ -755,8 +753,6 @@ public class RecentTabsRowAdapter extends BaseExpandableListAdapter {
+@@ -755,19 +753,16 @@ public class RecentTabsRowAdapter extends BaseExpandableListAdapter {
      public void notifyDataSetChanged() {
          mGroups.clear();
          addGroup(mRecentlyClosedTabsGroup);
 -        if (CommandLine.getInstance()
 -                .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
-             for (ForeignSession session : mRecentTabsManager.getForeignSessions()) {
-                 if (!mHasForeignDataRecorded) {
-                     RecordHistogram.recordEnumeratedHistogram("HistoryPage.OtherDevicesMenu",
-@@ -768,7 +764,6 @@ public class RecentTabsRowAdapter extends BaseExpandableListAdapter {
-             if (mRecentTabsManager.shouldDisplaySyncPromo()) {
-                 addGroup(new SyncPromoGroup());
+-            for (ForeignSession session : mRecentTabsManager.getForeignSessions()) {
+-                if (!mHasForeignDataRecorded) {
+-                    RecordHistogram.recordEnumeratedHistogram("HistoryPage.OtherDevicesMenu",
+-                            OtherSessionsActions.HAS_FOREIGN_DATA, OtherSessionsActions.LIMIT);
+-                    mHasForeignDataRecorded = true;
+-                }
+-                addGroup(new ForeignSessionGroup(session));
+-            }
+-            if (mRecentTabsManager.shouldDisplaySyncPromo()) {
+-                addGroup(new SyncPromoGroup());
++        for (ForeignSession session : mRecentTabsManager.getForeignSessions()) {
++            if (!mHasForeignDataRecorded) {
++                RecordHistogram.recordEnumeratedHistogram("HistoryPage.OtherDevicesMenu",
++                        OtherSessionsActions.HAS_FOREIGN_DATA, OtherSessionsActions.LIMIT);
++                mHasForeignDataRecorded = true;
              }
--        }
++            addGroup(new ForeignSessionGroup(session));
++        }
++        if (mRecentTabsManager.shouldDisplaySyncPromo()) {
++            addGroup(new SyncPromoGroup());
+         }
  
          // Add separator line after the recently closed tabs group.
-         int recentlyClosedIndex = mGroups.indexOf(mRecentlyClosedTabsGroup);
+diff --git a/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java b/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java
+index 31f2fbe..9b7557a 100644
+--- a/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java
++++ b/chrome/android/java/src/org/chromium/chrome/browser/ntp/snippets/SnippetsConfig.java
+@@ -4,9 +4,7 @@
+ 
+ package org.chromium.chrome.browser.ntp.snippets;
+ 
+-import org.chromium.base.CommandLine;
+ import org.chromium.chrome.browser.ChromeFeatureList;
+-import org.chromium.chrome.browser.ChromeSwitches;
+ 
+ /**
+  * Provides configuration details for NTP snippets.
+@@ -15,9 +13,7 @@ public final class SnippetsConfig {
+     private SnippetsConfig() {}
+ 
+     public static boolean isEnabled() {
+-        return ChromeFeatureList.isEnabled(ChromeFeatureList.NTP_SNIPPETS)
+-                && CommandLine.getInstance()
+-                        .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES);
++        return ChromeFeatureList.isEnabled(ChromeFeatureList.NTP_SNIPPETS);
+     }
+ 
+     public static boolean isSaveToOfflineEnabled() {
 diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
-index 03d2ece..9bc7fc2 100644
+index 46afe21..fb6fbab 100644
 --- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
 +++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/MainPreferences.java
-@@ -16,7 +16,6 @@ import org.chromium.base.CommandLine;
+@@ -15,7 +15,6 @@ import org.chromium.base.CommandLine;
  import org.chromium.base.VisibleForTesting;
  import org.chromium.chrome.R;
  import org.chromium.chrome.browser.ChromeFeatureList;
@@ -68,7 +105,7 @@ index 03d2ece..9bc7fc2 100644
  import org.chromium.chrome.browser.PasswordUIView;
  import org.chromium.chrome.browser.autofill.PersonalDataManager;
  import org.chromium.chrome.browser.net.spdyproxy.DataReductionProxySettings;
-@@ -174,13 +173,8 @@ public class MainPreferences extends PreferenceFragment
+@@ -168,13 +167,8 @@ public class MainPreferences extends PreferenceFragment
  
      private void setupSignInPref() {
          mSignInPreference = (SignInPreference) findPreference(PREF_SIGN_IN);
@@ -76,9 +113,11 @@ index 03d2ece..9bc7fc2 100644
 -                .hasSwitch(ChromeSwitches.ENABLE_SUPPRESSED_CHROMIUM_FEATURES)) {
 -            getPreferenceScreen().removePreference(mSignInPreference);
 -        } else {
-             mSignInPreference.registerForUpdates();
-             mSignInPreference.setEnabled(true);
+-            mSignInPreference.registerForUpdates();
+-            mSignInPreference.setEnabled(true);
 -        }
++        mSignInPreference.registerForUpdates();
++        mSignInPreference.setEnabled(true);
      }
  
      private void clearSignInPref() {

@@ -37,7 +37,7 @@ git apply $LOCAL_REPO/build/patches/ungoogled/remove-get-help-button.patch && gi
 git apply $LOCAL_REPO/build/patches/signin.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Revert 'Disable unsupported sign-in and sync' and 'Remove snippets UI from NTP'"
 
 cp -f $LOCAL_REPO/build/webrefiner/web_refiner_conf $LOCAL_REPO/src/chrome/android/java/res/raw/
-#cp -f $LOCAL_REPO/build/webrefiner/raw/web_defender_configuration.txt $LOCAL_REPO/src/chrome/android/java/res/raw/web_defender_ex.conf # no idea where to place it
+cp -f $LOCAL_REPO/build/webrefiner/raw/web_defender_configuration.txt $LOCAL_REPO/src/chrome/android/java/res/raw/web_defender_ex.conf
 git add -f $(git status -s | awk '{print $2}') && git commit -m "Shamelessly stealing WebRefiner config from JSwarts and extending it"
 
 pushd $LOCAL_REPO/src/components/web_refiner/java/
@@ -82,8 +82,7 @@ if [[ "$isCustom" != "--no-gn" ]];
 then
   . build/android/envsetup.sh
   gclient runhooks -v
-  #gn gen out/Default --args='target_os="android" is_debug=false symbol_level=1 enable_ac3_eac3_audio_demuxing=true enable_google_now=false enable_hevc_demuxing=true enable_hotwording=false enable_iterator_debugging=false enable_mse_mpeg2ts_stream_parser=true exclude_unwind_tables=true ffmpeg_branding="Chrome" is_component_build=false proprietary_codecs=true remove_webcore_debug_symbols=true enable_hangout_services_extension=true enable_webrtc=true enable_widevine=true rtc_use_h264=true use_openh264=true chrome_pgo_phase=0 full_wpo_on_official=false'
-  gn gen out/Default --args='target_os="android" is_debug=false symbol_level=1 enable_ac3_eac3_audio_demuxing=true enable_google_now=false enable_hevc_demuxing=true enable_hotwording=false enable_iterator_debugging=false enable_mse_mpeg2ts_stream_parser=true exclude_unwind_tables=true ffmpeg_branding="Chrome" is_component_build=false proprietary_codecs=true remove_webcore_debug_symbols=true enable_hangout_services_extension=true enable_webrtc=true enable_widevine=true use_openh264=true chrome_pgo_phase=0 full_wpo_on_official=false'
+  gn gen out/Default --args='target_os="android" is_debug=false symbol_level=1 enable_ac3_eac3_audio_demuxing=true enable_google_now=false enable_hevc_demuxing=true enable_hotwording=false enable_iterator_debugging=false enable_mse_mpeg2ts_stream_parser=true exclude_unwind_tables=true ffmpeg_branding="Chrome" is_component_build=false proprietary_codecs=true remove_webcore_debug_symbols=true enable_hangout_services_extension=true enable_webrtc=true enable_widevine=true rtc_use_h264=true use_openh264=true chrome_pgo_phase=0 full_wpo_on_official=false'
   # implementing custom translated lines build
   # now all translatons are stock - but keeping this as a nice w/a
   #patch -p0 < $LOCAL_REPO/build/patches/chrome_strings_grd_ninja.diff
