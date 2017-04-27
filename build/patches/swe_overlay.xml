@@ -913,7 +913,7 @@
   <!-- XSS Defender -->
   <string name="xss_defender_title">"Защитник XSS - Beta"</string>
   <string name="xss_defender_summary">"Защищает от межсайтовых скриптовых атак."</string>
-  <string name="xss_defender_about_text">&quot;XSS-Defender защищает вас от protects you from межсайтовых скриптовых атак (XSS). Это распространненая в сети угроза, направленная на кражу личных данных .&quot;</string>
+  <string name="xss_defender_about_text">&quot;XSS-Defender защищает вас от межсайтовых скриптовых атак (XSS). Это распространненая в сети угроза, направленная на кражу личных данных .&quot;</string>
   <string name="xss_defender_enable">&quot;Включить Защитник XSS (beta)&quot;</string>
 
   <string name="do_not_show_msg">"Больше не показывать"</string>
