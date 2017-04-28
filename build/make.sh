@@ -16,7 +16,7 @@ cd $LOCAL_REPO/src
 mkdir -p $LOCAL_REPO/src/swe/channels/default/res/raw/ $LOCAL_REPO/src/swe/channels/system/res/raw/
 cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/default/res/raw/
 cp -f $LOCAL_REPO/build/patches/swe_features/search_engines_preload $LOCAL_REPO/src/swe/channels/system/res/raw/
-git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo and Bing search engines preload"
+git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo and NoSearch search engines preload"
 
 mkdir -p $LOCAL_REPO/src/swe/channels/default/res/values/ $LOCAL_REPO/src/swe/channels/system/res/values/
 cp -f $LOCAL_REPO/build/patches/swe_features/overlay.xml $LOCAL_REPO/src/swe/channels/default/res/values/
@@ -30,7 +30,7 @@ git apply $LOCAL_REPO/build/patches/inox/chromium-sandbox-pie.patch && git add -
 git apply $LOCAL_REPO/build/patches/inox/add-duckduckgo-search-engine.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding DuckDuckGo search engine"
 
 # ungoogled patches
-#git apply $LOCAL_REPO/build/patches/ungoogled/add-nosearch-search-engine.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding search engine to disable searching in the omnibox"
+git apply $LOCAL_REPO/build/patches/ungoogled/add-nosearch-search-engine.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Adding search engine to disable searching in the omnibox"
 git apply $LOCAL_REPO/build/patches/ungoogled/remove-get-help-button.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Removes the 'Get help with using Chromium' button"
 
 # get back sign-in and sync, hidden under ENABLE_SUPPRESSED_CHROMIUM_FEATURES flag
@@ -58,8 +58,7 @@ pushd $LOCAL_REPO/src/third_party/ffmpeg
   git add -f $(git status -s | awk '{print $2}') && git commit -m "HEVC support"
 popd
 
-# getting back search engines for incognito tabs setting
-#git revert f38a5a8a2dbbb46beb0c235c4e0c1a75c775c8b6 --no-edit
+git apply $LOCAL_REPO/build/patches/remove_incognito.patch && git add -f $(git status -s | awk '{print $2}') && git commit -m "Remove incognito search as it does not really work :("
 
 :<<comment
 

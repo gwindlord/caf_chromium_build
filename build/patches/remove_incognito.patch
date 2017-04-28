@@ -1,0 +1,13 @@
+diff --git a/chrome/android/java/src/org/chromium/chrome/browser/preferences/SearchEnginePreferenceFragment.java b/chrome/android/java/src/org/chromium/chrome/browser/preferences/SearchEnginePreferenceFragment.java
+index b184bf4..f751417 100644
+--- a/chrome/android/java/src/org/chromium/chrome/browser/preferences/SearchEnginePreferenceFragment.java
++++ b/chrome/android/java/src/org/chromium/chrome/browser/preferences/SearchEnginePreferenceFragment.java
+@@ -62,7 +62,7 @@ public class SearchEnginePreferenceFragment extends PreferenceFragment implement
+                 (ChromeBasePreference) findPreference(PREF_SEARCH_ENGINE_FOR_INCOGNITO);
+         ChromeBasePreference searchEngineRegularPref =
+                 (ChromeBasePreference) findPreference(PREF_SEARCH_ENGINE_FOR_REGULAR);
+-        if (CommandLine.getInstance().hasSwitch(ChromeSwitches.DISABLE_INCOGNITO_SEARCH_ENGINES)) {
++        if (!CommandLine.getInstance().hasSwitch(ChromeSwitches.DISABLE_INCOGNITO_SEARCH_ENGINES)) {
+             preferenceScreen.removePreference(searchEngineIncognitoPref);
+             searchEngineRegularPref.setTitle(R.string.prefs_search_engine);
+         } else {
